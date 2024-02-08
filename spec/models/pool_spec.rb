@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Pool, type: :model do
   it { should have_many :memberships }

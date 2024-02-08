@@ -13,10 +13,10 @@ class PoolsController < ApplicationController
   end
 
   def create
-    @pool = Pool.new(pool_params)
+    pcs = PoolCreationService.new(pool_params, current_user.id)
 
-    if @pool.save
-      redirect_to @pool, notice: 'Pool was successfully created.'
+    if pcs.save
+      redirect_to pcs.pool, notice: "Pool was successfully created."
     else
       render :new
     end
@@ -27,7 +27,7 @@ class PoolsController < ApplicationController
 
   def update
     if @pool.update(pool_params)
-      redirect_to @pool, notice: 'Pool was successfully updated.'
+      redirect_to @pool, notice: "Pool was successfully updated."
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class PoolsController < ApplicationController
 
   def destroy
     @pool.destroy
-    redirect_to pools_url, notice: 'Pool was successfully destroyed.'
+    redirect_to pools_url, notice: "Pool was successfully destroyed."
   end
 
   private
@@ -45,6 +45,6 @@ class PoolsController < ApplicationController
   end
 
   def pool_params
-    params.require(:pool).permit(:name, :description, cutoff_date, :event_date, :multiple_entries)
+    params.require(:pool).permit(:name, :description, :cutoff_date, :event_date, :multiple_entries)
   end
 end

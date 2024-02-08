@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :pool do
-    name { "MyString" }
-    cutoff_date { "2024-02-07" }
-    event_date { "2024-02-07" }
+    name { Faker::GreekPhilosophers.name }
+    cutoff_date { 1.week.from_now }
+    event_date { 2.weeks.from_now }
     multiple_entries { false }
-    description { "MyString" }
+    description { Faker::GreekPhilosophers.quote }
   end
 end

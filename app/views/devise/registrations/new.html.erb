@@ -1,6 +1,6 @@
 <div class="mt-4">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "max-w-sm mx-auto" }) do |f| %>
-    <h2 class="text-4xl font-extrabold dark:text-white mb-4">Sign Up</h2>
+    <h2 class="text-4xl font-extrabold mb-4">Sign Up</h2>
     <%= render "devise/shared/error_messages", resource: resource %>
     <div class="mb-5">
       <%= f.label :email, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
