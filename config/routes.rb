@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   resources :pools
 
   get "up" => "rails/health#show", :as => :rails_health_check
+  get '/check.txt', to: proc {[200, {}, ['it_works']]}
 end

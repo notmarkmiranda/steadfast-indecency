@@ -79,6 +79,10 @@ test:
 #
 production:
   <<: *default
+  secret_key_base: <%= Rails.application.credentials.dig(:secret_key_base) %>
+  rails_master_key: <%= ENV['RAILS_MASTER_KEY'] %>
+  encoding: unicode
+  pool: 5
   database: steadfast_indecency_production
   username: steadfast_indecency
   password: <%= ENV["STEADFAST_INDECENCY_DATABASE_PASSWORD"] %>
