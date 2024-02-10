@@ -75,6 +75,8 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
+    addressable (2.8.6)
+      public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
     base64 (0.2.0)
     bcrypt (3.1.20)
@@ -122,6 +124,10 @@ GEM
       railties (>= 6.0.0)
     json (2.7.1)
     language_server-protocol (3.17.0.3)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.8.1)
+      launchy (>= 2.2, < 3)
     lint_roller (1.1.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -164,6 +170,7 @@ GEM
       method_source (~> 1.0)
     psych (5.1.2)
       stringio
+    public_suffix (5.0.4)
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.7.3)
@@ -317,6 +324,7 @@ DEPENDENCIES
   faker
   jbuilder
   jsbundling-rails
+  letter_opener
   pg (~> 1.1)
   pry
   puma (>= 5.0)
