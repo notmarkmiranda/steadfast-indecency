@@ -5,7 +5,9 @@ Rails.application.routes.draw do
 
   get "/dashboard", to: "dashboard#show", as: "dashboard"
 
-  resources :pools
+  resources :pools do
+    resources :memberships, only: [:new, :create], controller: "pools/memberships"
+  end
 
   get "up" => "rails/health#show", :as => :rails_health_check
   get '/check.txt', to: proc {[200, {}, ['it_works']]}

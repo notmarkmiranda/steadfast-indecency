@@ -41,7 +41,7 @@ class PoolsController < ApplicationController
   private
 
   def set_pool
-    @pool = Pool.find(params[:id])
+    @pool = Pool.includes(memberships: :user).find(params[:id])
   end
 
   def pool_params
