@@ -11,4 +11,7 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", :as => :rails_health_check
   get '/check.txt', to: proc {[200, {}, ['it_works']]}
+  authenticate :user, ->(user) { user.super_duper_admin? } do
+    mount GoodJob::Engine => 'good_job'
+  end
 end

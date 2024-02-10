@@ -7,6 +7,7 @@ gem "rails", "~> 7.1.2"
 gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "devise"
+gem "good_job"
 gem "jbuilder"
 gem "jsbundling-rails"
 gem "pg", "~> 1.1"
