@@ -7,6 +7,9 @@ Rails.application.routes.draw do
 
   resources :pools do
     resources :memberships, only: [:new, :create], controller: "pools/memberships"
+    member do
+      get "/invite/:token", to: "pools#invite", as: "invite"
+    end
   end
 
   get "up" => "rails/health#show", :as => :rails_health_check

@@ -9,4 +9,8 @@ class Pool < ApplicationRecord
   def allows_multiple_entries?
     multiple_entries
   end
+
+  def superadmin
+    memberships.find_by(role: 2).user
+  end
 end

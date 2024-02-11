@@ -1,0 +1,48 @@
+<% if notice.present? || alert.present? %>
+  <div class="fixed top-0 left-0 w-full flex justify-center z-50">
+    <% if notice.present? %>
+      <div class="notice-container" style="margin-top: 50px;">
+        <p class="notice text-center bg-blue-200 text-blue-800 py-2 px-4 rounded-md">
+          <%= notice %>
+          <button class="dismiss-button" onclick="this.parentNode.remove();">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4 inline-block align-middle">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </p>
+      </div>
+    <% end %>
+    <% if alert.present? %>
+      <div class="alert-container" style="margin-top: 50px;">
+        <p class="alert text-center bg-red-200 text-red-800 py-2 px-4 rounded-md">
+          <%= alert %>
+          <button class="dismiss-button" onclick="this.parentNode.remove();">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-4 w-4 inline-block align-middle">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <script>
+    setTimeout(function() {
+      <% if notice.present? %>
+        var noticeContainer = document.querySelector('.notice-container');
+        noticeContainer.style.transition = 'opacity 1s';
+        noticeContainer.style.opacity = '0';
+        setTimeout(function() {
+          noticeContainer.remove();
+        }, 1000);
+      <% end %>
+      <% if alert.present? %>
+        var alertContainer = document.querySelector('.alert-container');
+        alertContainer.style.transition = 'opacity 1s';
+        alertContainer.style.opacity = '0';
+        setTimeout(function() {
+          alertContainer.remove();
+        }, 1000);
+      <% end %>
+    }, 7000);
+  </script>
+<% end %>
