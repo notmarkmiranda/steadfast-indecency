@@ -1,5 +1,5 @@
 class PoolsController < ApplicationController
-  before_action :set_pool, only: [:show, :edit, :update, :destroy]
+  before_action :set_pool, only: [:show, :edit, :update, :destroy, :invite]
 
   def index
     @pools = Pool.all
@@ -36,6 +36,10 @@ class PoolsController < ApplicationController
   def destroy
     @pool.destroy
     redirect_to pools_url, notice: "Pool was successfully destroyed."
+  end
+
+  def invite
+    @membership = GlobalID::Locator.locate_signed(params[:token], for: "membership")
   end
 
   private

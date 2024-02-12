@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     end
   end
 
+  put   "/memberships/:id/accept", to: "pools/memberships#accept", as: "accept_membership"
+  patch "/memberships/:id/accept", to: "pools/memberships#accept"
+  delete "/memberships/:id", to: "pools/memberships#destroy", as: "membership"
+
   get "up" => "rails/health#show", :as => :rails_health_check
   authenticate :user, ->(user) { user.super_duper_admin? } do
     mount GoodJob::Engine => 'good_job'

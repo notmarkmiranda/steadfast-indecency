@@ -2,27 +2,30 @@
 <h1>Welcome <%= current_user.email %></h1>
 
 <%= link_to "Create New Pool", new_pool_path, class: "text-blue-500 font-bold hover:text-blue-700" %>
-<table class="min-w-full divide-y divide-gray-200">
-  <thead class="bg-gray-50">
-    <tr>
-      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pool Name</th>
-      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pool Description</th>
-      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cutoff Date</th>
-      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</th>
-      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Superadmin's Email</th>
-    </tr>
-  </thead>
-  <tbody class="bg-white divide-y divide-gray-200">
-    <% @pools.each do |pool| %>
+
+<% if @pools.any? %>
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
       <tr>
-        <td class="px-6 py-4 whitespace-nowrap">
-          <%= link_to pool.name, pool_path(pool), class: "text-blue-500 font-bold hover:text-blue-700" %>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap"><%= pool.description %></td>
-        <td class="px-6 py-4 whitespace-nowrap"><%= pool.cutoff_date %></td>
-        <td class="px-6 py-4 whitespace-nowrap"><%= pool.event_date %></td>
-        <td class="px-6 py-4 whitespace-nowrap"><%= pool.superadmin.email %></td>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pool Name</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pool Description</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cutoff Date</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event Date</th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Superadmin's Email</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      <% @pools.each do |pool| %>
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <%= link_to pool.name, pool_path(pool), class: "text-blue-500 font-bold hover:text-blue-700" %>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap"><%= pool.description %></td>
+          <td class="px-6 py-4 whitespace-nowrap"><%= pool.cutoff_date %></td>
+          <td class="px-6 py-4 whitespace-nowrap"><%= pool.event_date %></td>
+          <td class="px-6 py-4 whitespace-nowrap"><%= pool.superadmin.email %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

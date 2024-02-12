@@ -8,10 +8,25 @@ class Pools::MembershipsController < ApplicationController
   def create
     @membership = @pool.memberships.new(membership_params)
     if @membership.save
+      InviteMailer.with(membership: @membership).invite_new_member.deliver_now
       redirect_to @pool, notice: 'Membership created successfully.'
     else
       render :new
     end
+  end
+
+  def destroy
+    @membership = Membership.find(params[:id])
+    @membership.destroy
+
+    redirect_to dashboard_path, notice: "Membership removed."
+  end
+
+  def accept
+    @membership = Membership.find(params[:id])
+    @membership.accept!
+
+    redirect_to @membership.pool, notice: "Membership accepted."
   end
 
   private
