@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "home#index"
 
-  devise_for :users
+  devise_for :users, controllers: { passwords: :passwords }
 
   get "/dashboard", to: "dashboard#show", as: "dashboard"
 

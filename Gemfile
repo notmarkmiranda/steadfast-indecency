@@ -19,8 +19,10 @@ gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[windows jruby]
 
 group :development, :test do
+  gem "capybara"
   gem "factory_bot_rails"
   gem "faker"
+  gem "launchy"
   gem "pry"
   gem "rspec-rails", "~> 6.1.0"
   gem "standard"

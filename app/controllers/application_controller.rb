@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || super
+    redirect = stored_location_for(resource_or_scope)
+    redirect == root_path || redirect.nil? ? dashboard_path : redirect
   end
 
   private

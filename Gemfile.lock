@@ -85,6 +85,15 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    capybara (3.40.0)
+      addressable
+      matrix
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.11)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (>= 1.5, < 3.0)
+      xpath (~> 3.2)
     coderay (1.1.3)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
@@ -150,6 +159,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.2)
+    matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.22.1)
@@ -322,6 +332,8 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
     zeitwerk (2.6.13)
 
 PLATFORMS
@@ -331,6 +343,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  capybara
   cssbundling-rails
   devise
   factory_bot_rails
@@ -338,6 +351,7 @@ DEPENDENCIES
   good_job
   jbuilder
   jsbundling-rails
+  launchy
   letter_opener
   pg (~> 1.1)
   pry
