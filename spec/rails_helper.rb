@@ -65,6 +65,9 @@ RSpec.configure do |config|
 
   # add factorybot gem
   config.include FactoryBot::Syntax::Methods
+
+  # allow for devise helpers in request specs
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end
 
 # shoulda matchers

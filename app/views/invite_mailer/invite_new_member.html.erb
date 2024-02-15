@@ -7,8 +7,7 @@
 <body>
   <h1>New Member Invitation</h1>
   <p>Hello <%= @user.email %>,</p>
-  <p>You have been invited to join our community as a new member. Please click the link below to review this invitation.</p>
-  <p>If you have never used this site before, you will have to reset your password first.</p>
+  <p>You have been invited to join a prop bet pool named <%= @pool.name %>. Please click the link below to review this invitation.</p>
   <p><a href="<%= @invite_pool_path %>">Complete Registration</a></p>
   <p>Thank you!</p>
 </body>

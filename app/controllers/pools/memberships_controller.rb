@@ -6,9 +6,11 @@ class Pools::MembershipsController < ApplicationController
   end
 
   def create
+    # TODO: Mark Mirnda => refactor this to use a service object
     @membership = @pool.memberships.new(membership_params)
+    @membership.user = retrieve_or_create_user
     if @membership.save
-      InviteMailer.with(membership: @membership).invite_new_member.deliver_now
+      InviteMailer.with(membership: @membership, new_user: @new_user).invite_new_member.deliver_now
       redirect_to @pool, notice: 'Membership created successfully.'
     else
       render :new
@@ -36,17 +38,15 @@ class Pools::MembershipsController < ApplicationController
   end
 
   def membership_params
-    user = retrieve_or_create_user
-    @membership.errors.add(:email, "must be present") unless user.present?
-
-    params.require(:membership).permit(:role, :active).merge(user_id: user.id)
+    params.require(:membership).permit(:role, :active)
   end
 
   def retrieve_or_create_user
     email = params[:membership][:email]
     return unless email.present?
     user = User.find_or_initialize_by(email: email)
-    if user.new_record?
+    @new_user = user.new_record?
+    if @new_user
       user.password = SecureRandom.hex(8)
       user.save
     end

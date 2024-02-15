@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :membership do
-    role { 0 }
+    role { "member" }
     active { false }
     pool
     user
