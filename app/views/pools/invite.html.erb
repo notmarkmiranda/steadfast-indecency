@@ -1,14 +1,17 @@
-<h2 class="text-4xl font-extrabold mb-4"><%= @pool.name %></h2>
-<div class="mb-4">
-  <p>Welcome <%= current_user.email %>!</p>
-  <p>You have been invited to join the <%= @pool.name %> pool.</p>
-</div>
+<div class="max-w-4xl mx-auto">
+  <h2 class="text-4xl font-extrabold mb-4"><%= @pool.name %></h2>
+  <div class="mb-4">
+    <p>Welcome <%= current_user.email %>!</p>
+    <p>You have been invited to join the <%= @pool.name %> pool.</p>
+  </div>
 
-<h3 class="text-3xl font-extrabold mb-4">Here are the details for the pool event:</h3>
-<p><strong>Cutoff Date:</strong> <%= @pool.cutoff_date %>, The cutoff date is the last day to submit your entry for the event. After this date, no more entries will be accepted.</p>
-<p><strong>Event Date:</strong> <%= @pool.event_date %>, The event date is the date when the pool event will take place. Make sure to mark your calendar and be prepared for the exciting event!</p>
+  <h3 class="text-3xl font-extrabold mb-4">Here are the details for the pool event:</h3>
+  <p><strong>Cutoff Date:</strong> <%= @pool.cutoff_date %>, The cutoff date is the last day to submit your entry for the event. After this date, no more entries will be accepted.</p>
+  <p><strong>Event Date:</strong> <%= @pool.event_date %>, The event date is the date when the pool event will take place. Make sure to mark your calendar and be prepared for the exciting event!</p>
 
-<div class="mt-4 flex">
-  <%= button_to "Accept", accept_membership_path(@membership), method: :put, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded mr-2" %>
-  <%= button_to "Reject", membership_path(@membership), method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded" %>
+  <div class="mt-4 flex">
+    <%= button_to "Accept", accept_membership_path(@membership), method: :put, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded mr-2" %>
+    <%= button_to "Reject", membership_path(@membership), method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded" %>
+  </div>
+  <p class="text-xs mt-4 text-gray-400">*If you decide to reject this invitation and are not a member of any other pools, we will delete your account in about 3 days</p>
 </div>

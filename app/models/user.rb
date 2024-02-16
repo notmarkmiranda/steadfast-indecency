@@ -10,4 +10,8 @@ class User < ApplicationRecord
   def super_duper_admin?
     email == "notmarkmiranda@gmail.com"
   end
+
+  def has_no_memberships?
+    memberships.count.zero?
+  end
 end
