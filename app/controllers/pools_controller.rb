@@ -6,6 +6,10 @@ class PoolsController < ApplicationController
   end
 
   def show
+    if @pool.is_in_the_future?
+      @question = @pool.questions.build
+      @options = 2.times.map { @question.options.build }
+    end
   end
 
   def new
@@ -45,7 +49,7 @@ class PoolsController < ApplicationController
   private
 
   def set_pool
-    @pool = Pool.includes(memberships: :user).find(params[:id])
+    @pool = Pool.includes(memberships: :user, questions: :options).find(params[:id])
   end
 
   def pool_params

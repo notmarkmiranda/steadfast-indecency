@@ -68,6 +68,7 @@ RSpec.configure do |config|
 
   # allow for devise helpers in request specs
   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::IntegrationHelpers, type: :feature
 end
 
 # shoulda matchers
