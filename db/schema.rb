@@ -116,7 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_124128) do
 
   create_table "questions", force: :cascade do |t|
     t.string "body"
-    t.boolean "tie_break"
+    t.boolean "tie_break", default: false
     t.bigint "pool_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
