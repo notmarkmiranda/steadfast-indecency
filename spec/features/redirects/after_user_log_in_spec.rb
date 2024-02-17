@@ -1,8 +1,11 @@
 require "rails_helper"
 
 RSpec.describe "After user logs in", type: :feature do
-  let!(:user) { create(:user) }
-  let(:pool) { create(:pool) }
+  let(:membership) { create(:membership) }
+  let(:user) { membership.user }
+  let(:pool) { membership.pool }
+
+  before { create(:membership, pool: pool, role: 2) }
 
   it "redirects to the last page the user visited" do
     visit pool_path(pool.id)

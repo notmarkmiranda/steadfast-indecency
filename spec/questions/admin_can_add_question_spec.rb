@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.feature "Admin can add question" do
   let(:pool) { create(:pool, cutoff_date: Date.tomorrow, event_date: 2.days.from_now) }
-  let(:membership) { create(:membership, role: 2)}
+  let(:membership) { create(:membership, role: 2, pool: pool)}
   let(:admin) { membership.user }
 
   before do

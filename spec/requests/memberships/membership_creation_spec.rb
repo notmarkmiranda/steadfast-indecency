@@ -1,10 +1,11 @@
 require "rails_helper"
 
 RSpec.describe "Membership Creation", type: :request do
-  let(:pool) { create(:pool) }
+  let(:membership) { create(:membership, role: 1) }
+  let(:pool) { membership.pool }
 
   before do
-    sign_in create(:user)
+    sign_in membership.user
     allow(InviteMailer).to receive_message_chain(:with, :invite_new_member, :deliver_now)
   end
 

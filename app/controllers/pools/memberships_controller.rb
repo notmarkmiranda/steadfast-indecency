@@ -2,11 +2,13 @@ class Pools::MembershipsController < ApplicationController
   before_action :load_pool, only: [:new, :create]
 
   def new
+    authorize @pool, :admin?
     @membership = @pool.memberships.new
   end
 
   def create
     # TODO: Mark Mirnda => refactor this to use a service object
+    authorize @pool, :admin?
     @membership = @pool.memberships.new(membership_params)
     @membership.user = retrieve_or_create_user
     if @membership.save

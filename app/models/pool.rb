@@ -16,7 +16,7 @@ class Pool < ApplicationRecord
   end
 
   def superadmin
-    memberships.find_by(role: 2).user
+    memberships.find_by(role: 2)&.user
   end
 
   def is_in_the_future?

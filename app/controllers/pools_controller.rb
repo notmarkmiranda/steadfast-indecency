@@ -6,6 +6,7 @@ class PoolsController < ApplicationController
   end
 
   def show
+    authorize @pool
     if @pool.is_in_the_future?
       @question = @pool.questions.build
       @options = 2.times.map { @question.options.build }

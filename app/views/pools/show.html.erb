@@ -17,7 +17,9 @@
             <li class="text-gray-600 mb-2"><%= membership.user.email %> - <%= membership.role %></li>
           <% end %>
         </ul>
-        <%= link_to "Invite New Member", new_pool_membership_path(@pool), class: "text-blue-500 underline" %>
+        <% if policy(@pool).admin? %>
+          <%= link_to "Invite New Member", new_pool_membership_path(@pool), class: "text-blue-500 underline" %>
+        <% end %>
       </div>
     </div>
     <div>
@@ -40,10 +42,8 @@
       <% end %>
     </div>
   </div>
-  <% if @pool.questions.any? %>
-  <% end %>
 
-  <% if @pool.is_in_the_future? %>
+  <% if @pool.is_in_the_future? && policy(@pool).admin? %>
     <%= render "question_form" %>
   <% end %>
 </div>
