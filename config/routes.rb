@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :pools do
     resources :memberships, only: [:new, :create], controller: "pools/memberships"
     resources :questions, only: [:create, :destroy], controller: "pools/questions"
+    resources :entries, only: [:new, :create], controller: "pools/entries"
     member do
       get "/invite/:token", to: "pools#invite", as: "invite"
     end
