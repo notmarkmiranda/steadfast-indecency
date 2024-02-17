@@ -2,6 +2,7 @@ class Pool < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
   has_many :questions
+  has_many :entries
 
   def saved_questions
     questions.where.not(id: nil)

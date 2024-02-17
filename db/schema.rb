@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_16_125235) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_17_044225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "entries", force: :cascade do |t|
+    t.bigint "pool_id", null: false
+    t.bigint "user_id", null: false
+    t.boolean "paid", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pool_id"], name: "index_entries_on_pool_id"
+    t.index ["user_id"], name: "index_entries_on_user_id"
+  end
 
   create_table "good_job_batches", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -144,6 +154,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_16_125235) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "entries", "pools"
+  add_foreign_key "entries", "users"
   add_foreign_key "memberships", "pools"
   add_foreign_key "memberships", "users"
   add_foreign_key "options", "questions"
