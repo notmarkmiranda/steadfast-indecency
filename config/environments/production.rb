@@ -86,7 +86,7 @@ Rails.application.configure do
     user_name: ENV["POSTMARK_TOKEN"],
     password: ENV["POSTMARK_TOKEN"],
     authentication: :plain,
-    enable_starttls_auto: true,
+    enable_starttls_auto: true
   }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to

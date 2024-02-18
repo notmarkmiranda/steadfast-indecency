@@ -1,8 +1,8 @@
 class Pool < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
-  has_many :questions
-  has_many :entries
+  has_many :questions, dependent: :destroy
+  has_many :entries, dependent: :destroy
 
   def saved_questions
     questions.where.not(id: nil)
@@ -20,7 +20,21 @@ class Pool < ApplicationRecord
     memberships.find_by(role: 2)&.user
   end
 
+  def editable?
+    is_in_the_future? && entries.empty?
+  end
+
+  def single_entry?
+    !multiple_entries
+  end
+
+  def entry_eligible?(user)
+    multiple_entries? || !entries.where(user: user).any?
+  end
+
+  private
+
   def is_in_the_future?
-    cutoff_date > Date.today
+    cutoff_date > Time.zone.today
   end
 end

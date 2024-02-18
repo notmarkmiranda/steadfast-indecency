@@ -13,7 +13,7 @@ class Pools::MembershipsController < ApplicationController
     @membership.user = retrieve_or_create_user
     if @membership.save
       InviteMailer.with(membership: @membership, new_user: @new_user).invite_new_member.deliver_now
-      redirect_to @pool, notice: 'Membership created successfully.'
+      redirect_to @pool, notice: "Membership created successfully."
     else
       render :new
     end
@@ -22,7 +22,7 @@ class Pools::MembershipsController < ApplicationController
   def destroy
     @membership = Membership.find(params[:id])
     user = @membership.user
-    @membership.destroy
+    @membership.destroy!
     DestroyUserJob.schedule(user.id) if user.has_no_memberships?
 
     redirect_to dashboard_path, notice: "Membership removed."
@@ -47,12 +47,12 @@ class Pools::MembershipsController < ApplicationController
 
   def retrieve_or_create_user
     email = params[:membership][:email]
-    return unless email.present?
+    return if email.blank?
     user = User.find_or_initialize_by(email: email)
     @new_user = user.new_record?
     if @new_user
       user.password = SecureRandom.hex(8)
-      user.save
+      user.save!
     end
     user
   end

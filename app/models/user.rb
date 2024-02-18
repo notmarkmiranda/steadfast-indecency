@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :pools, through: :memberships
-  has_many :entries
+  has_many :entries, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

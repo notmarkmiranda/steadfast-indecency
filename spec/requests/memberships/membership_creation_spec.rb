@@ -11,13 +11,13 @@ RSpec.describe "Membership Creation", type: :request do
 
   it "creates a new membership" do
     expect do
-      post "/pools/#{pool.id}/memberships", params: { membership: attributes_for(:membership).merge(email: "test@example.com") }
+      post "/pools/#{pool.id}/memberships", params: {membership: attributes_for(:membership).merge(email: "test@example.com")}
     end.to change(Membership, :count).by(1)
   end
 
   it "creates a new user" do
     expect do
-      post "/pools/#{pool.id}/memberships", params: { membership: attributes_for(:membership).merge(email: "test@example.com") }
+      post "/pools/#{pool.id}/memberships", params: {membership: attributes_for(:membership).merge(email: "test@example.com")}
     end.to change(User, :count).by(1)
   end
 end

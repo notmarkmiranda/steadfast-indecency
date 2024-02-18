@@ -3,7 +3,7 @@ class DestroyUserJob < ApplicationJob
 
   def perform(user_id)
     user = User.find(user_id)
-    user.destroy
+    user.destroy!
   end
 
   def self.schedule(user_id)

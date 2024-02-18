@@ -4,7 +4,7 @@ class PoolPolicy < ApplicationPolicy
   end
 
   def admin?
-    Membership.find_by(pool: record, user: user, role: ['admin', 'super_admin']).present?
+    Membership.find_by(pool: record, user: user, role: ["admin", "super_admin"]).present?
   end
 
   class Scope < Scope

@@ -7,7 +7,7 @@ class PoolsController < ApplicationController
 
   def show
     authorize @pool
-    if @pool.is_in_the_future?
+    if @pool.editable?
       @question = @pool.questions.build
       @options = 2.times.map { @question.options.build }
     end
@@ -39,7 +39,7 @@ class PoolsController < ApplicationController
   end
 
   def destroy
-    @pool.destroy
+    @pool.destroy!
     redirect_to pools_url, notice: "Pool was successfully destroyed."
   end
 

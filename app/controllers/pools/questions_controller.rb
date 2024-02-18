@@ -4,7 +4,7 @@ class Pools::QuestionsController < ApplicationController
   def create
     @question = @pool.questions.new(question_params)
     authorize @pool, :admin?
-    flash = @question.save ? { notice: 'Question was successfully created.' } : { alert: 'Failed to create question.' }
+    flash = @question.save ? {notice: "Question was successfully created."} : {alert: "Failed to create question."}
 
     redirect_to @pool, flash
   end

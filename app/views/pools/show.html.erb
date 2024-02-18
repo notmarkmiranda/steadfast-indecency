@@ -8,6 +8,12 @@
         <p class="text-gray-600 mb-2">Cutoff Date: <%= @pool.cutoff_date.strftime("%B %d, %Y") %></p>
         <p class="text-gray-600 mb-2">Event Date: <%= @pool.event_date.strftime("%B %d, %Y") %></p>
         <p class="text-gray-600 mb-2">Allows Multiple Entries: <%= @pool.allows_multiple_entries? ? "Yes" : "No" %></p>
+        <% if @pool.entry_eligible?(current_user) &&  %>
+          <%= button_to "Create Entry", pool_entries_path(@pool), class: "text-white font-medium bg-indigo-600 px-4 py-2 rounded-md" %>
+        <% else %>
+          <p class="text-gray-600 mb-2"><%= link_to "your entry", pool_entry_path(@pool, Entry.last), class:  %></p>
+          <%= button_to "Create Entry", pool_entries_path(@pool), disabled: true, class: "text-white font-medium disabled:bg-indigo-100 px-4 py-2 rounded-md" %>
+        <% end %>
       </div>
 
       <div>
@@ -18,17 +24,17 @@
           <% end %>
         </ul>
         <% if policy(@pool).admin? %>
-          <%= link_to "Invite New Member", new_pool_membership_path(@pool), class: "text-blue-500 underline" %>
+          <%= link_to "Invite New Member", new_pool_membership_path(@pool) %>
         <% end %>
       </div>
     </div>
-    <div>
+    <div class="mt-4">
       <h3 class="text-lg font-bold mb-2">Questions</h3>
       <% if @pool.saved_questions.any? %>
         <ol class="list-decimal list-inside ml-4">
           <% @pool.saved_questions.each do |question| %>
             <li class="text-gray-600 mb-2">
-              <%= question.body %>
+              <b><%= question.body %></b>
               <ul class="list-disc list-inside ml-4"> <!-- Add list-disc class here -->
                 <% question.options.each do |option| %>
                   <li><%= option.body %></li>
@@ -43,7 +49,7 @@
     </div>
   </div>
 
-  <% if @pool.is_in_the_future? && policy(@pool).admin? %>
+  <% if @pool.editable? && policy(@pool).admin? %>
     <%= render "question_form" %>
   <% end %>
 </div>

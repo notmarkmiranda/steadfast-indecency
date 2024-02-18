@@ -1,6 +1,6 @@
 class Question < ApplicationRecord
   belongs_to :pool
-  has_many :options
+  has_many :options, dependent: :destroy
   accepts_nested_attributes_for :options, allow_destroy: true
 
   validate :require_two_options
@@ -8,6 +8,6 @@ class Question < ApplicationRecord
   private
 
   def require_two_options
-    errors.add(:options, 'must have at least two') if options.size < 2
+    errors.add(:options, "must have at least two") if options.size < 2
   end
 end
