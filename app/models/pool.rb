@@ -4,6 +4,8 @@ class Pool < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :entries, dependent: :destroy
 
+  delegate :count, to: :questions, prefix: true
+
   def saved_questions
     questions.where.not(id: nil)
   end

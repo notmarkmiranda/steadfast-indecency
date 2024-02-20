@@ -1,10 +1,14 @@
 class PoolPolicy < ApplicationPolicy
   def show?
-    Membership.where(pool: record, user: user).exists?
+    user_is_member?
   end
 
   def admin?
     Membership.find_by(pool: record, user: user, role: ["admin", "super_admin"]).present?
+  end
+
+  def create_entry?
+    user_is_member?
   end
 
   class Scope < Scope
@@ -12,5 +16,11 @@ class PoolPolicy < ApplicationPolicy
     # def resolve
     #   scope.all
     # end
+  end
+
+  private
+
+  def user_is_member?
+    Membership.where(pool: record, user: user).exists?
   end
 end
