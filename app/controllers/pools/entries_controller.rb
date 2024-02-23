@@ -3,7 +3,6 @@ class Pools::EntriesController < ApplicationController
 
   def show
     @entry = Entry.includes(pool: {questions: :options}).find(params[:id])
-    @choices = @entry.choices.build
   end
 
   def new

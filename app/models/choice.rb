@@ -19,4 +19,6 @@ class Choice < ApplicationRecord
   delegate :options, to: :question, prefix: true
 
   validates :question_id, uniqueness: {scope: :entry_id}
+
+  scope :in_question_order, -> { joins(:question).order('questions.created_at') }
 end

@@ -16,11 +16,20 @@ RSpec.describe Choice, type: :model do
   before do
     question = build(:question)
     question.save!(validate: false)
-    create(:choice, question: question, option: nil)
+    @choice = create(:choice, question: question, option: nil)
   end
 
   it { should belong_to(:option).optional }
   it { should belong_to :question }
   it { should belong_to :entry }
   it { should validate_uniqueness_of(:question_id).scoped_to(:entry_id) }
+
+  describe ".in_question_order" do
+    it "does not include unsaved records" do
+      unsaved_choice = Choice.new
+
+      expect(Choice.in_question_order).to eq [@choice]
+      expect(Choice.in_question_order).not_to include(unsaved_choice)
+    end
+  end
 end
