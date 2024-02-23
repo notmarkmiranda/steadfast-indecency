@@ -39,7 +39,7 @@ class Pools::EntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:entry).permit(:id, choices_attributes: [:id, :option_id, :entry_id])
+    params.require(:entry).permit(:id, choices_attributes: [:id, :option_id])
   end
 
   def set_pool

@@ -30,20 +30,16 @@
 <h1 class="text-2xl font-bold mb-4">Your Entry</h1>
 
 <%= form_with model: @entry, url: pool_entry_path(@pool), method: :put do |f| %>
-  <% @entry.pool.questions.each_with_index do |question, i| %>
-    <p><%= i + 1 %>. <%= question.body %></p>
-      <%= f.fields_for :choices do |ff| %>
-      <ul>
-        <% question.options.each do |option| %>
-          <li>
-            <%= ff.label :option_id do %>
-              <%= ff.radio_button :option_id, option.id %>
-              <%= option.body %>
-            <% end%>
-          </li>
-        <% end %>
-      </ul>
+  <% @entry.choices.where.not(id: nil).each do |choice| %>
+    <li><%= choice.question_body %></li>
+    <%= f.fields_for :choices, choice do |ff| %>
+      <% choice.question_options.each do |option| %>
+        <div class="flex items-center mb-2">
+          <%= ff.radio_button :option_id, option.id, class: "form-radio text-blue-600 h-4 w-4" %>
+          <%= ff.label :option_id, option.body, class: "ml-2 text-sm text-gray-700" %>
+        </div>
       <% end %>
+    <% end %>
   <% end %>
-  <%= f.submit %>
+  <%= f.submit class: "bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
 <% end %>
