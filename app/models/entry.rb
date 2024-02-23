@@ -14,4 +14,6 @@ class Entry < ApplicationRecord
   belongs_to :user
   has_many :choices, dependent: :destroy
   accepts_nested_attributes_for :choices
+
+  delegate :questions, to: :pool, prefix: true
 end
