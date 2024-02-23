@@ -13,10 +13,9 @@
 require "rails_helper"
 
 RSpec.describe Choice, type: :model do
-
   before do
     question = build(:question)
-    question.save(validate: false)
+    question.save!(validate: false)
     create(:choice, question: question, option: nil)
   end
 

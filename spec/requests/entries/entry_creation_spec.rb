@@ -10,13 +10,13 @@ RSpec.describe "Entry creation", type: :request do
 
     it "creates a new entry" do
       expect do
-        post "/pools/#{pool.id}/entries", params: { entry: { title: "New Entry", content: "Lorem ipsum" } }
+        post "/pools/#{pool.id}/entries", params: {entry: {title: "New Entry", content: "Lorem ipsum"}}
       end.to change(Entry, :count).by(1)
     end
 
     it "creates as many choices as there are questions in the pool" do
       expect do
-        post "/pools/#{pool.id}/entries", params: { entry: { title: "New Entry", content: "Lorem ipsum" } }
+        post "/pools/#{pool.id}/entries", params: {entry: {title: "New Entry", content: "Lorem ipsum"}}
       end.to change(Choice, :count).by(question_count)
     end
   end

@@ -21,7 +21,7 @@ FactoryBot.define do
       end
 
       after(:build) do |question, evaluator|
-        question.save(validate: false)
+        question.save!(validate: false)
         create_list(:option, evaluator.option_count, question: question)
       end
     end

@@ -24,7 +24,7 @@ FactoryBot.define do
         question_count { 0 }
       end
 
-      after(:create) do |pool,evaluator|
+      after(:create) do |pool, evaluator|
         create_list(:question, evaluator.question_count, :with_options, pool: pool)
       end
     end

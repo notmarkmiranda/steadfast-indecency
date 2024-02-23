@@ -7,8 +7,8 @@ class EntryCreationService
   end
 
   def save
-    @entry = Entry.create(@params)
-    question_ids = @entry.pool.questions.pluck(:id)
+    @entry = Entry.create!(@params)
+    question_ids = @entry.pool.questions.ids
     entry_id = @entry.id
     choices_params = question_ids.map do |question_id|
       {
@@ -16,7 +16,7 @@ class EntryCreationService
         entry_id:
       }
     end
-    @choices = Choice.create(choices_params)
+    @choices = Choice.create!(choices_params)
 
     return true if @entry.valid? && @choices.all?(&:valid?)
 

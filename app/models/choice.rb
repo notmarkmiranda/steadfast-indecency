@@ -18,5 +18,5 @@ class Choice < ApplicationRecord
   delegate :body, to: :question, prefix: true
   delegate :options, to: :question, prefix: true
 
-  validates :question_id, uniqueness: { scope: :entry_id }
+  validates :question_id, uniqueness: {scope: :entry_id}
 end
