@@ -20,5 +20,5 @@ class Choice < ApplicationRecord
 
   validates :question_id, uniqueness: {scope: :entry_id}
 
-  scope :in_question_order, -> { joins(:question).order('questions.created_at') }
+  scope :in_question_order, -> { joins(:question).order("questions.created_at") }
 end
