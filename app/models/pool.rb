@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: pools
+#
+#  id               :bigint           not null, primary key
+#  cutoff_date      :date
+#  description      :string
+#  event_date       :date
+#  multiple_entries :boolean          default(FALSE)
+#  name             :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
 class Pool < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships

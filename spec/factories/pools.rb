@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: pools
+#
+#  id               :bigint           not null, primary key
+#  cutoff_date      :date
+#  description      :string
+#  event_date       :date
+#  multiple_entries :boolean          default(FALSE)
+#  name             :string           not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
 FactoryBot.define do
   factory :pool do
     name { Faker::GreekPhilosophers.name }

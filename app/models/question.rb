@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id         :bigint           not null, primary key
+#  body       :string
+#  tie_break  :boolean          default(FALSE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  pool_id    :bigint           not null
+#
 class Question < ApplicationRecord
   belongs_to :pool
   has_many :options, dependent: :destroy

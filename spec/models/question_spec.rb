@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: questions
+#
+#  id         :bigint           not null, primary key
+#  body       :string
+#  tie_break  :boolean          default(FALSE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  pool_id    :bigint           not null
+#
 require "rails_helper"
 
 RSpec.describe Question, type: :model do
