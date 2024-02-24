@@ -2,6 +2,7 @@ class Pools::QuestionsController < ApplicationController
   before_action :load_pool
 
   def create
+    return redirect_to @pool, notice: "This pools is no longer editable" unless @pool.editable?
     @question = @pool.questions.new(question_params)
     authorize @pool, :admin?
     flash = @question.save ? {notice: "Question was successfully created."} : {alert: "Failed to create question."}

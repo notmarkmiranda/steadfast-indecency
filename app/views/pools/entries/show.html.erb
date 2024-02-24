@@ -31,7 +31,7 @@
 
 <%= form_with model: @entry, url: pool_entry_path(@pool), method: :put do |f| %>
   <% @entry.choices.in_question_order.each do |choice| %>
-    <li><%= choice.question_body %></li>
+    <b class="text-xl"><%= choice.question_body %></b>
     <%= f.fields_for :choices, choice do |ff| %>
       <% choice.question_options.each do |option| %>
         <div class="flex items-center mb-2">

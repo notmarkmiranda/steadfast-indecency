@@ -5,8 +5,9 @@
       <div>
         <h2 class="text-lg font-bold mb-2"><%= @pool.name %></h2>
         <p class="text-gray-600 mb-2"><%= @pool.description %></p>
-        <p class="text-gray-600 mb-2">Cutoff Date: <%= @pool.cutoff_date.strftime("%B %d, %Y") %></p>
-        <p class="text-gray-600 mb-2">Event Date: <%= @pool.event_date.strftime("%B %d, %Y") %></p>
+        <p class="text-gray-600 mb-2">All times are in Mountain Time</p>
+        <p class="text-gray-600 mb-2">Cutoff Date: <%= @pool.cutoff_date.in_time_zone("America/Denver").strftime("%B %d, %Y - %l:%M %p") %></p>
+        <p class="text-gray-600 mb-2">Event Date: <%= @pool.event_date.in_time_zone("America/Denver").strftime("%B %d, %Y - %l:%M %p") %></p>
         <p class="text-gray-600 mb-2">Allows Multiple Entries: <%= @pool.allows_multiple_entries? ? "Yes" : "No" %></p>
         <% if @pool.entry_eligible?(current_user) &&  %>
           <%= button_to "Create Entry", pool_entries_path(@pool), class: "text-white font-medium bg-indigo-600 px-4 py-2 rounded-md" %>
@@ -31,33 +32,30 @@
             <li class="text-gray-600 mb-2"><%= membership.user.email %> - <%= membership.role %></li>
           <% end %>
         </ul>
-        <% if policy(@pool).admin? %>
+        <% if policy(@pool).admin? && @pool.editable? %>
           <%= link_to "Invite New Member", new_pool_membership_path(@pool) %>
         <% end %>
       </div>
     </div>
     <div class="mt-4">
-      <h3 class="text-lg font-bold mb-2">Questions</h3>
+      <h3 class="text-lg font-bold mb-2">Props</h3>
       <% if @pool.saved_questions.any? %>
         <ol class="list-decimal list-inside ml-4">
           <% @pool.saved_questions.each do |question| %>
             <li class="text-gray-600 mb-2">
               <b><%= question.body %></b>
-              <ul class="list-disc list-inside ml-4"> <!-- Add list-disc class here -->
-                <% question.options.each do |option| %>
-                  <li><%= option.body %></li>
-                <% end %>
-              </ul>
             </li>
           <% end %>
         </ol>
       <% else %>
-        <p class="text-gray-600 mb-2">No questions have been added to this pool yet.</p>
+        <p class="text-gray-600 mb-2">No props have been added to this pool yet.</p>
       <% end %>
     </div>
   </div>
 
   <% if @pool.editable? && policy(@pool).admin? %>
     <%= render "question_form" %>
+  <% elsif policy(@pool).admin? %>
+    <p>This pool can no longer be changed because people have entered.</p>
   <% end %>
 </div>

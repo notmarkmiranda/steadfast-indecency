@@ -3,9 +3,9 @@
 # Table name: pools
 #
 #  id               :bigint           not null, primary key
-#  cutoff_date      :date
+#  cutoff_date      :datetime
 #  description      :string
-#  event_date       :date
+#  event_date       :datetime
 #  multiple_entries :boolean          default(FALSE)
 #  name             :string           not null
 #  created_at       :datetime         not null
