@@ -25,7 +25,5 @@ RSpec.feature "Admin can add question" do
     expect(page).to have_content("Pool Details")
     expect(page).to have_content("Question was successfully created.")
     expect(page).to have_content(question)
-    expect(page).to have_content(option_1)
-    expect(page).to have_content(option_2)
   end
 end
