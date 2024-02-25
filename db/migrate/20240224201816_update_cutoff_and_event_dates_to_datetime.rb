@@ -1,5 +1,5 @@
 class UpdateCutoffAndEventDatesToDatetime < ActiveRecord::Migration[7.1]
- def up
+  def up
     change_column :pools, :cutoff_date, :datetime
     change_column :pools, :event_date, :datetime
   end
