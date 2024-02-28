@@ -7,6 +7,7 @@ class PoolsController < ApplicationController
 
   def show
     authorize @pool
+    @entries = @pool.entries.where(user: current_user).decorate
     if @pool.editable?
       @question = @pool.questions.build
       @options = 2.times.map { @question.options.build }
@@ -50,10 +51,10 @@ class PoolsController < ApplicationController
   private
 
   def set_pool
-    @pool = Pool.includes(memberships: :user, questions: :options).find(params[:id])
+    @pool = Pool.includes(:entries, memberships: :user, questions: :options).find(params[:id]).decorate
   end
 
   def pool_params
-    params.require(:pool).permit(:name, :description, :cutoff_date, :event_date, :multiple_entries)
+    params.require(:pool).permit(:name, :description, :cutoff_date, :event_date, :multiple_entries, :price)
   end
 end

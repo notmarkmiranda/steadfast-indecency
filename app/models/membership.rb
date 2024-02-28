@@ -15,6 +15,9 @@ class Membership < ApplicationRecord
   belongs_to :pool
   belongs_to :user
 
+  delegate :entries, to: :user, prefix: true
+  delegate :email, to: :user, prefix: true
+
   enum role: {member: 0, admin: 1, super_admin: 2}
 
   def accept!

@@ -8,6 +8,7 @@
 #  event_date       :datetime
 #  multiple_entries :boolean          default(FALSE)
 #  name             :string           not null
+#  price            :integer          default(0)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #

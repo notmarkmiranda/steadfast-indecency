@@ -11,6 +11,14 @@ class PoolPolicy < ApplicationPolicy
     user_is_member?
   end
 
+  def mark_as_paid?
+    admin?
+  end
+
+  def mark_as_unpaid?
+    admin?
+  end
+
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve

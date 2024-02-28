@@ -8,6 +8,7 @@
 #  event_date       :datetime
 #  multiple_entries :boolean          default(FALSE)
 #  name             :string           not null
+#  price            :integer          default(0)
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
@@ -45,6 +46,10 @@ class Pool < ApplicationRecord
 
   def entry_eligible?(user)
     multiple_entries? || !entries.where(user: user).any?
+  end
+
+  def entry_ineligible?(user)
+    !entry_eligible?(user)
   end
 
   private

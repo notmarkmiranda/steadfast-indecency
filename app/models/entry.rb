@@ -16,4 +16,12 @@ class Entry < ApplicationRecord
   accepts_nested_attributes_for :choices
 
   delegate :questions, to: :pool, prefix: true
+
+  def paid!
+    update!(paid: true)
+  end
+
+  def unpaid!
+    update!(paid: false)
+  end
 end

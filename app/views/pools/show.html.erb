@@ -3,38 +3,80 @@
   <div class="bg-white shadow-md rounded-lg p-6 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
-        <h2 class="text-lg font-bold mb-2"><%= @pool.name %></h2>
-        <p class="text-gray-600 mb-2"><%= @pool.description %></p>
+        <h2 class="text-lg font-bold mb-2">
+          <%= @pool.name %>
+        </h2>
+        <p class="text-gray-600 mb-2">
+          <%= @pool.description %>
+        </p>
         <p class="text-red-600 text-xs">*All times are in Mountain Time</p>
-        <p class="text-gray-600 mb-2">Cutoff Date: <%= @pool.cutoff_date.in_time_zone("America/Denver").strftime("%B %d, %Y - %l:%M %p") %></p>
-        <p class="text-gray-600 mb-2">Event Date: <%= @pool.event_date.in_time_zone("America/Denver").strftime("%B %d, %Y - %l:%M %p") %></p>
-        <p class="text-gray-600 mb-2">Allows Multiple Entries: <%= @pool.allows_multiple_entries? ? "Yes" : "No" %></p>
-        <% if @pool.entry_eligible?(current_user) &&  %>
-          <%= button_to "Create Entry", pool_entries_path(@pool), class: "text-white font-medium bg-indigo-600 px-4 py-2 rounded-md" %>
-        <% else %>
-          <%= button_to "Create Entry", pool_entries_path(@pool), disabled: true, class: "text-white font-medium disabled:bg-indigo-100 px-4 py-2 rounded-md" %>
-        <% end %>
+        <p class="text-gray-600 mb-2">Cutoff Date: <%= @pool.cutoff_date_time %></p>
+        <p class="text-gray-600 mb-2">Event Date: <%= @pool.event_date_time %></p>
+        <p class="text-gray-600 mb-2">Allows Multiple Entries: <%= @pool.multiple_entries_text %></p>
+        <%= @pool.entry_button %>
         <div>
-          <h3 class="text-lg font-bold mb-2">User Entries</h3>
-          <ul class="list-disc list-inside ml-4">
-            <% @pool.entries.where(user: current_user).each_with_index do |entry, index| %>
-              <li class="text-gray-600 mb-2"><%= link_to "Entry ##{index}", pool_entry_path(@pool, entry) %></li>
-            <% end %>
-          </ul>
-        </div>
-
-      </div>
-
-      <div>
-        <h3 class="text-lg font-bold mb-2">Members</h3>
-        <ul class="list-disc list-inside ml-4">
-          <% @pool.memberships.each do |membership| %>
-            <li class="text-gray-600 mb-2"><%= membership.user.email %> - <%= membership.role %></li>
+          <% if @entries.any? %>
+            <h3 class="text-lg font-bold mb-2 mt-4">Your Entries</h3>
+            <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
+              <% @entries.each_with_index do |entry, index| %>
+                <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg">
+                  <%= entry.pool_show_link(index) %>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
-        </ul>
-        <% if policy(@pool).admin? && @pool.editable? %>
-          <%= link_to "Invite New Member", new_pool_membership_path(@pool) %>
-        <% end %>
+        </div>
+      </div>
+      <div>
+        <div class="members-list">
+          <h3 class="text-lg font-bold mb-2">Members & Entries</h3>
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                  <th scope="col" class="px-6 py-3">
+                    Email
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Role
+                  </th>
+                  <th scope="col" class="px-6 py-3">
+                    Entered?
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @pool.memberships.decorate.each do |membership| %>
+                  <tr class="odd:bg-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-xs">
+                      <%= membership.user_email%>
+                    </th>
+                    <td class="px-6 py-4 text-xs">
+                      <%= membership.role_text %>
+                    </td>
+                    <td class="px-6 py-4 text-xs">
+                      <%= membership.entered_text %>
+                    </td>
+                  </tr>
+                  <% membership.user_entries.decorate.each_with_index do |entry, i| %>
+                    <tr class="odd:bg-white">
+                      <th scope="row" class="pl-10 pr-6 pb-4 pt-0 font-medium text-gray-900 whitespace-nowrap text-xs">
+                        <%= entry.paid_icon %><%= entry.pool_show_link(i, enabled: false) %>
+                      </th>
+                      <td class="px-6 pb-4 text-xs" colspan=2>
+                        <%= entry.paid_unpaid_button %>
+                      </td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+
+          <% if policy(@pool).admin? && @pool.editable? %>
+            <%= link_to "Invite New Member", new_pool_membership_path(@pool) %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div class="mt-4">

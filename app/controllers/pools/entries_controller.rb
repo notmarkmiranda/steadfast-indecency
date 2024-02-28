@@ -21,11 +21,26 @@ class Pools::EntriesController < ApplicationController
 
   def update
     @entry = Entry.find(params[:id])
+    # authorize @entry
     if @entry.update(entry_params)
       redirect_to pool_entry_path(@pool, @entry), notice: "Entry was successfully updated."
     else
       # render :show
     end
+  end
+
+  def paid
+    authorize @pool, :mark_as_paid?
+    @entry = Entry.find(params[:id])
+    @entry.paid!
+    redirect_to @pool, notice: "Entry marked as paid!"
+  end
+
+  def unpaid
+    authorize @pool, :mark_as_unpaid?
+    @entry = Entry.find(params[:id])
+    @entry.unpaid!
+    redirect_to @pool, notice: "Entry marked as unpaid!"
   end
 
   private
