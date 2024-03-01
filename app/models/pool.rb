@@ -52,8 +52,6 @@ class Pool < ApplicationRecord
     !entry_eligible?(user)
   end
 
-  private
-
   def is_in_the_future?
     cutoff_date > Time.zone.today
   end

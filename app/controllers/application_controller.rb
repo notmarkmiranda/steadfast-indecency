@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # as `authenticate_user!` (or whatever your resource is) will halt the filter chain and redirect
   # before the location can be stored.
   before_action :authenticate_user!
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def after_sign_in_path_for(resource_or_scope)
     redirect = stored_location_for(resource_or_scope)
@@ -25,5 +26,9 @@ class ApplicationController < ActionController::Base
   def store_user_location!
     # :user is the scope we are authenticating
     store_location_for(:user, request.fullpath)
+  end
+
+  def user_not_authorized
+    redirect_back(fallback_location: root_path, alert: "Hmm, something fishy is going on.")
   end
 end

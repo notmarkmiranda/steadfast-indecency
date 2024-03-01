@@ -8,16 +8,34 @@ RSpec.describe "Entry creation", type: :request do
   describe "POST /entries" do
     before { sign_in membership.user }
 
-    it "creates a new entry" do
-      expect do
-        post "/pools/#{pool.id}/entries", params: {entry: {title: "New Entry", content: "Lorem ipsum"}}
-      end.to change(Entry, :count).by(1)
+    describe "before the cutoff has passed" do
+      it "creates a new entry" do
+        expect do
+          post "/pools/#{pool.id}/entries"
+        end.to change(Entry, :count).by(1)
+      end
+
+      it "creates as many choices as there are questions in the pool" do
+        expect do
+          post "/pools/#{pool.id}/entries"
+        end.to change(Choice, :count).by(question_count)
+      end
     end
 
-    it "creates as many choices as there are questions in the pool" do
-      expect do
-        post "/pools/#{pool.id}/entries", params: {entry: {title: "New Entry", content: "Lorem ipsum"}}
-      end.to change(Choice, :count).by(question_count)
+    describe "after the cutoff has passed" do
+      before { pool.update(cutoff_date: DateTime.yesterday) }
+
+      it "does not create a new entry" do
+        expect do
+          post "/pools/#{pool.id}/entries"
+        end.not_to change(Entry, :count)
+      end
+      
+      it "does not create any choices" do
+        expect do
+          post "/pools/#{pool.id}/entries"
+        end.not_to change(Choice, :count)
+      end
     end
   end
 end

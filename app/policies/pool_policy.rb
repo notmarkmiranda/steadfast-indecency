@@ -8,7 +8,7 @@ class PoolPolicy < ApplicationPolicy
   end
 
   def create_entry?
-    user_is_member?
+    user_is_member? && record.is_in_the_future?
   end
 
   def mark_as_paid?
