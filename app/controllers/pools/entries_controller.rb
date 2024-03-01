@@ -29,6 +29,12 @@ class Pools::EntriesController < ApplicationController
     end
   end
 
+  def destroy
+    @entry = Entry.includes(:pool).find(params[:id])
+    authorize @entry
+    redirect_to @pool, notice: "Entry was successfully destroyed." if @entry.destroy
+  end
+
   def paid
     authorize @pool, :mark_as_paid?
     @entry = Entry.find(params[:id])

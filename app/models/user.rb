@@ -28,4 +28,11 @@ class User < ApplicationRecord
   def has_no_memberships?
     memberships.count.zero?
   end
+
+  def admin_of?(pool)
+    membership = memberships.find_by(pool_id: pool.id)
+    return false unless membership
+
+    membership.admin? || membership.super_admin?
+  end
 end
