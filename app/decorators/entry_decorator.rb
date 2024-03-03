@@ -6,18 +6,18 @@ class EntryDecorator < Draper::Decorator
   end
 
   def delete_button
-    h.button_to h.pool_entry_path(object.pool, object), method: :delete, class: "px-2 py-1 text-white bg-red-500 border-red-500 rounded-lg hover:bg-red-600", form: {data: {turbo_confirm: "Are you sure? \n 🚨 This cannot be undone. 🚨"}} do
+    h.button_to h.pool_entry_path(object.pool, object), method: :delete, class: "px-3 py-2 text-white bg-red-500 border-red-500 rounded-lg hover:bg-red-600", form: {data: {turbo_confirm: "Are you sure? \n 🚨 This cannot be undone. 🚨"}} do
       "Delete Entry"
     end
   end
 
   def paid_unpaid_button
     if object.paid
-      h.button_to h.unpaid_pool_entry_path(object.pool, object), class: "px-2 py-1 text-white bg-red-500 border-red-500 rounded-lg hover:bg-red-600" do
+      h.button_to h.unpaid_pool_entry_path(object.pool, object), class: "px-3 py-2 text-white bg-red-500 border-red-500 rounded-lg hover:bg-red-600" do
         "Mark as Unpaid"
       end
     else
-      h.button_to h.paid_pool_entry_path(object.pool, object), class: "px-2 py-1 text-white bg-green-500 border-green-500 rounded-lg hover:bg-green-600" do
+      h.button_to h.paid_pool_entry_path(object.pool, object), class: "px-3 py-2 text-white bg-green-500 border-green-500 rounded-lg hover:bg-green-600" do
         "Mark as Paid"
       end
     end

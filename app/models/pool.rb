@@ -25,7 +25,7 @@ class Pool < ApplicationRecord
   end
 
   def create_super_admin(user_id)
-    memberships.create(user_id: user_id, role: 2)
+    memberships.create(user_id: user_id, role: 2, active: true)
   end
 
   def allows_multiple_entries?

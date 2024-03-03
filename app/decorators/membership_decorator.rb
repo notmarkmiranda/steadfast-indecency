@@ -8,6 +8,11 @@ class MembershipDecorator < Draper::Decorator
   def entered_text
     object.pool.entries.where(user: object.user).any? ? "Yes" : "No"
   end
+
+  def status_text
+    active ? "Active" : "Pending"
+  end
+
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:
   #

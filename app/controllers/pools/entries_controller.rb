@@ -12,7 +12,7 @@ class Pools::EntriesController < ApplicationController
   def create
     authorize @pool, :create_entry?
     @ecs = EntryCreationService.new(entry_creation_params, @pool.questions_count)
-    if @ecs.save
+    if @ecs.save!
       redirect_to pool_entry_path(@pool, @ecs.entry), notice: "Entry was successfully created."
     else
       # render :new
@@ -23,7 +23,7 @@ class Pools::EntriesController < ApplicationController
     @entry = Entry.find(params[:id])
     # authorize @entry
     if @entry.update(entry_params)
-      redirect_to pool_entry_path(@pool, @entry), notice: "Entry was successfully updated."
+      redirect_to pool_path(@pool), notice: "Entry was successfully updated."
     else
       # render :show
     end

@@ -21,7 +21,7 @@ class PoolsController < ApplicationController
   def create
     pcs = PoolCreationService.new(pool_params, current_user.id)
 
-    if pcs.save
+    if pcs.save!
       redirect_to pcs.pool, notice: "Pool was successfully created."
     else
       render :new

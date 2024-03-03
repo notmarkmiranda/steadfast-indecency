@@ -6,7 +6,7 @@ class PoolCreationService
     @user_id = user_id
   end
 
-  def save
+  def save!
     pool.save && pool.create_super_admin(user_id)
   end
 end

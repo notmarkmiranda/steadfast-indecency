@@ -6,7 +6,7 @@ class EntryCreationService
     @questions_count = questions_count
   end
 
-  def save
+  def save!
     @entry = Entry.create!(@params)
     question_ids = @entry.pool_questions.ids
     entry_id = @entry.id
