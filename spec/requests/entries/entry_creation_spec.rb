@@ -30,7 +30,7 @@ RSpec.describe "Entry creation", type: :request do
           post "/pools/#{pool.id}/entries"
         end.not_to change(Entry, :count)
       end
-      
+
       it "does not create any choices" do
         expect do
           post "/pools/#{pool.id}/entries"

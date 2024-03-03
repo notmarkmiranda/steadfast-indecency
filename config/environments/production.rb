@@ -82,7 +82,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: "smtp.postmarkapp.com",
     port: 587,
-    domain: "steadfast-indecency.onrender.com",
+    domain: "steadfast-indecency-staging-aa8e54097fde.herokuapp.com",
     user_name: ENV["POSTMARK_TOKEN"],
     password: ENV["POSTMARK_TOKEN"],
     authentication: :plain,

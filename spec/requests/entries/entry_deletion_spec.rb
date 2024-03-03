@@ -23,8 +23,8 @@ RSpec.describe "Entry Deletion", type: :request do
       end
 
       it "deletes the associated choices" do
-        ecs = EntryCreationService.new({ pool_id: pool.id, user_id: user.id}, pool.questions_count)
-        ecs.save
+        ecs = EntryCreationService.new({pool_id: pool.id, user_id: user.id}, pool.questions_count)
+        ecs.save!
 
         expect do
           delete pool_entry_path(pool, ecs.entry)
@@ -44,8 +44,8 @@ RSpec.describe "Entry Deletion", type: :request do
       end
 
       it "deletes the associated choices" do
-        ecs = EntryCreationService.new({ pool_id: pool.id, user_id: user.id}, pool.questions_count)
-        ecs.save
+        ecs = EntryCreationService.new({pool_id: pool.id, user_id: user.id}, pool.questions_count)
+        ecs.save!
 
         expect do
           delete pool_entry_path(pool, ecs.entry)
@@ -69,8 +69,8 @@ RSpec.describe "Entry Deletion", type: :request do
       end
 
       it "deletes the associated choices" do
-        ecs = EntryCreationService.new({ pool_id: pool.id, user_id: user.id}, pool.questions_count)
-        ecs.save
+        ecs = EntryCreationService.new({pool_id: pool.id, user_id: user.id}, pool.questions_count)
+        ecs.save!
 
         expect do
           delete pool_entry_path(pool, ecs.entry)
@@ -90,8 +90,8 @@ RSpec.describe "Entry Deletion", type: :request do
       end
 
       it "deletes the associated choices" do
-        ecs = EntryCreationService.new({ pool_id: pool.id, user_id: user.id}, pool.questions_count)
-        ecs.save
+        ecs = EntryCreationService.new({pool_id: pool.id, user_id: user.id}, pool.questions_count)
+        ecs.save!
 
         expect do
           delete pool_entry_path(pool, ecs.entry)

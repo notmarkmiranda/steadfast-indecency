@@ -6,11 +6,11 @@ RSpec.describe "Entry Update", type: :request do
   let(:entry) { create(:entry, pool: pool, user: admin, paid: false) }
 
   before { sign_in(admin) }
-  
+
   describe "#paid" do
     it "marks an entry as paid" do
       post "/pools/#{pool.id}/entries/#{entry.id}/paid"
-      
+
       entry.reload
       expect(entry.paid).to eq true
     end
@@ -21,7 +21,7 @@ RSpec.describe "Entry Update", type: :request do
 
     it "marks an entry as unpaid" do
       post "/pools/#{pool.id}/entries/#{entry.id}/unpaid"
-      
+
       entry.reload
       expect(entry.paid).to eq false
     end

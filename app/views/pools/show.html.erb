@@ -17,10 +17,13 @@
         <div>
           <% if @entries.any? %>
             <h3 class="text-lg font-bold mb-2 mt-4">Your Entries</h3>
-            <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
+            <ul class="w-64 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
               <% @entries.each_with_index do |entry, index| %>
-                <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg">
+                <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg inline-flex gap-4">
                   <%= entry.pool_show_link(index) %>
+                  <% if policy(entry).destroy? %>
+                    <%= entry.delete_button %>
+                  <% end %>
                 </li>
               <% end %>
             </ul>
@@ -61,11 +64,20 @@
                   <% membership.user_entries.decorate.each_with_index do |entry, i| %>
                     <tr class="odd:bg-white">
                       <th scope="row" class="pl-10 pr-6 pb-4 pt-0 font-medium text-gray-900 whitespace-nowrap text-xs">
-                        <%= entry.paid_icon %><%= entry.pool_show_link(i, enabled: false) %>
+                        <% if policy(@pool).admin? %>
+                          <%= entry.paid_icon %>
+                        <% end %>
+                        <%= entry.pool_show_link(i, enabled: false) %>
                       </th>
-                      <td class="px-6 pb-4 text-xs" colspan=2>
-                        <%= entry.paid_unpaid_button %>
-                      </td>
+
+                        <td class="px-6 pb-4 text-xs inline-flex gap-2" colspan=2>
+                          <% if policy(entry).destroy? %>
+                            <%= entry.delete_button %>
+                          <% end %>
+                          <% if policy(@pool).admin? %>
+                            <%= entry.paid_unpaid_button %>
+                          <% end %>
+                        </td>
                     </tr>
                   <% end %>
                 <% end %>

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :memberships, only: [:new, :create], controller: "pools/memberships"
     resources :questions, only: [:create, :destroy], controller: "pools/questions"
     resources :entries, only: [:show, :create, :update, :destroy], controller: "pools/entries" do
-      member do 
+      member do
         post "/paid", to: "pools/entries#paid", as: "paid"
         post "/unpaid", to: "pools/entries#unpaid", as: "unpaid"
       end
