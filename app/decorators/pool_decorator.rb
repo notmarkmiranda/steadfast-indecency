@@ -22,4 +22,8 @@ class PoolDecorator < Draper::Decorator
   def multiple_entries_text
     object.allows_multiple_entries? ? "Yes" : "No"
   end
+
+  def superadmin_email
+    superadmin&.email || "🤷🏻‍♂️ No Superadmin"
+  end
 end
