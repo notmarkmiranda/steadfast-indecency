@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Entry creation", type: :request do
   let(:question_count) { 7 }
   let!(:pool) { create(:pool, :with_questions, question_count:) }
-  let(:membership) { create(:membership, pool: pool) }
+  let(:membership) { create(:membership, pool: pool, active: true) }
 
   describe "POST /entries" do
     before { sign_in membership.user }

@@ -20,6 +20,8 @@ class Membership < ApplicationRecord
 
   enum role: {member: 0, admin: 1, super_admin: 2}
 
+  scope :pending, -> { where(active: false) }
+
   def accept!
     update(active: true)
   end

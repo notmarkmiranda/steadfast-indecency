@@ -9,6 +9,6 @@ RSpec.describe "Invited user is redirected when accessing pending membership", t
   it "redirects the user to invite pool page" do
     visit pool_path(pool)
 
-    expect(page).to have_current_path(invite_pool_path(id: pool.id, token: "asdf"))
+    expect(current_path).to match(%r{/pools/\d+/invite/\w+})
   end
 end

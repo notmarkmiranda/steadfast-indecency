@@ -11,12 +11,7 @@ class PoolDecorator < Draper::Decorator
 
   def entry_button
     disabled = pool.entry_ineligible?(h.current_user)
-    css_classes = if disabled
-      "text-white font-medium disabled:bg-indigo-100 px-4 py-2 rounded-md"
-    else
-      "text-white font-medium bg-indigo-600 px-4 py-2 rounded-md"
-    end
-    h.button_to "Create Entry", h.pool_entries_path(pool), disabled: disabled, class: css_classes
+    h.button_to "Create Entry", h.pool_entries_path(pool), disabled: disabled, class: entry_button_css(disabled)
   end
 
   def multiple_entries_text
@@ -25,5 +20,15 @@ class PoolDecorator < Draper::Decorator
 
   def superadmin_email
     superadmin&.email || "🤷🏻‍♂️ No Superadmin"
+  end
+
+  private
+
+  def entry_button_css(disabled)
+    if disabled
+      "text-white font-medium disabled:bg-indigo-100 px-4 py-2 rounded-md"
+    else
+      "text-white font-medium bg-indigo-600 px-4 py-2 rounded-md"
+    end
   end
 end

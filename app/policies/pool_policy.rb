@@ -29,6 +29,6 @@ class PoolPolicy < ApplicationPolicy
   private
 
   def user_is_member?
-    Membership.where(pool: record, user: user).exists?
+    Membership.where(pool: record, user: user, active: true).exists?
   end
 end

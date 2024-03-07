@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "After user logs in", type: :feature do
-  let(:membership) { create(:membership) }
+  let(:membership) { create(:membership, active: true) }
   let(:user) { membership.user }
   let(:pool) { membership.pool }
 
