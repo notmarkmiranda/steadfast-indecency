@@ -21,11 +21,11 @@ class Pools::MembershipsController < ApplicationController
 
   def destroy
     @membership = Membership.find(params[:id])
-    user = @membership.user
-    @membership.destroy!
-    DestroyUserJob.schedule(user.id) if user.has_no_memberships?
+    # authorize @membership, :destroy?
+    MembershipDeletorService.call(membership_id: @membership.id)
+    # @membership.destroy
 
-    redirect_to dashboard_path, notice: "Membership removed."
+    redirect_to @membership.pool, notice: "Membership removed."
   end
 
   def accept

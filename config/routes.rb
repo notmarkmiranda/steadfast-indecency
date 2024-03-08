@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#show", as: "dashboard"
 
   resources :pools do
-    resources :memberships, only: [:new, :create], controller: "pools/memberships"
+    resources :memberships, only: [:new, :create, :destroy], controller: "pools/memberships"
     resources :questions, only: [:create, :destroy, :edit, :update], controller: "pools/questions"
     resources :entries, only: [:show, :create, :update, :destroy], controller: "pools/entries" do
       member do
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   put "/memberships/:id/accept", to: "pools/memberships#accept", as: "accept_membership"
   patch "/memberships/:id/accept", to: "pools/memberships#accept"
-  delete "/memberships/:id", to: "pools/memberships#destroy", as: "membership"
+  delete "/memberships/:id", to: "memberships#destroy", as: "membership"
 
   get "up" => "rails/health#show", :as => :rails_health_check
   authenticate :user, ->(user) { user.super_duper_admin? } do

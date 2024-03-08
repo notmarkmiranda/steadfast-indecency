@@ -11,7 +11,6 @@
 #  user_id    :bigint           not null
 #
 class Membership < ApplicationRecord
-  attribute :email
   belongs_to :pool
   belongs_to :user
 

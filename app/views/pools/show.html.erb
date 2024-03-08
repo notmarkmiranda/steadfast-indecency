@@ -60,7 +60,12 @@
               <tbody>
                 <% @pool.memberships.decorate.each do |membership| %>
                   <tr class="odd:bg-white">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-xs">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-xs inline-flex gap-1">
+                      <% if policy(@pool).admin? %>
+                        <%= button_to pool_membership_path(@pool, membership), method: :delete do %>
+                          <i class="fa-solid fa-x text-red-600"></i>
+                        <% end %>
+                      <% end %>
                       <%= membership.user_email%>
                     </th>
                     <td class="px-6 py-4 text-xs">
@@ -118,7 +123,9 @@
           <% @pool.saved_questions.each do |question| %>
             <li class="text-gray-600 mb-2">
               <% if policy(@pool).edit_prop? %>
-                <%= link_to "✏️", edit_pool_question_path(@pool, question), class: "no-underline" %>
+                <%= link_to edit_pool_question_path(@pool, question), class: "no-underline text-yellow-400" do %>
+                  <i class="fa-solid fa-pencil"></i>
+                <% end %>
               <% end %>
               <b><%= question.body %></b>
             </li>
