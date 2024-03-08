@@ -8,10 +8,13 @@ class MembershipDeletorService
   end
 
   def call
-    membership.destroy!
-
-    # TODO: Mark Mirnda => this is a good candidate for a job
-    # DestroyUserJob.schedule(user.id) if user.has_no_memberships?
+    Membership.transaction do
+      entries = membership.pool_entries.where(user: membership.user)
+      membership.destroy!
+      entries.destroy_all
+      # TODO: Mark Mirnda => this is a good candidate for a job
+      # DestroyUserJob.schedule(user.id) if user.has_no_memberships?
+    end
   end
 
   private
@@ -19,6 +22,6 @@ class MembershipDeletorService
   attr_reader :membership_id
 
   def membership
-    @membership ||= Membership.find(membership_id)
+    @membership ||= Membership.includes(:pool).find(membership_id)
   end
 end

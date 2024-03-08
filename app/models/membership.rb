@@ -13,6 +13,7 @@
 class Membership < ApplicationRecord
   belongs_to :pool
   belongs_to :user
+  delegate :entries, to: :pool, prefix: true
 
   delegate :entries, to: :user, prefix: true
   delegate :email, to: :user, prefix: true
