@@ -62,7 +62,6 @@ class PoolsController < ApplicationController
     params.require(:pool).permit(:name, :description, :cutoff_date, :event_date, :multiple_entries, :price)
   end
 
-
   def pending_membership
     @pending_membership ||= Membership.pending.find_by(pool: @pool, user: current_user)
   end

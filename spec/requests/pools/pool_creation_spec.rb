@@ -8,7 +8,7 @@ RSpec.describe "Pool creation", type: :request do
       name: "pool name",
       description: "pool description",
       cutoff_date: Date.tomorrow.in_time_zone("America/Denver").at_midday,
-      event_date: (Date.tomorrow).in_time_zone("America/Denver").at_midday + 1.hour
+      event_date: Date.tomorrow.in_time_zone("America/Denver").at_midday + 1.hour
     }
   end
 
