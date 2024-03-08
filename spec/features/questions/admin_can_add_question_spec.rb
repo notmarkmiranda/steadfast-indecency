@@ -20,7 +20,7 @@ RSpec.feature "Admin can add question" do
     fill_in "Option 1", with: option_1
     fill_in "Option 2", with: option_2
 
-    click_button "Create Question"
+    click_button "Create prop"
 
     expect(page).to have_content("Pool Details")
     expect(page).to have_content("Question was successfully created.")
