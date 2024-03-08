@@ -1,6 +1,6 @@
 <div class="container mx-auto">
   <h1 class="text-2xl font-bold mb-4">Pool Details</h1>
-  <div class="bg-white shadow-md rounded-lg p-6 mb-4">
+  <div class="bg-white border border-black rounded-lg p-6 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="col-span-1">
         <h2 class="text-lg font-bold mb-2">
@@ -9,10 +9,16 @@
         <p class="text-gray-600 mb-2">
           <%= @pool.description %>
         </p>
-        <p class="text-red-600 text-xs">*All times are in Mountain Time</p>
-        <p class="text-gray-600 mb-2">Cutoff Date: <%= @pool.cutoff_date_time %></p>
-        <p class="text-gray-600 mb-2">Event Date: <%= @pool.event_date_time %></p>
-        <p class="text-gray-600 mb-2">Allows Multiple Entries: <%= @pool.multiple_entries_text %></p>
+        <p class="text-gray-900 mb-0">
+          <b>Cutoff Date:</b> <%= @pool.cutoff_date_time %>
+        </p>
+        <p class="text-gray-900 mb-0">
+          <b>Event Date:</b> <%= @pool.event_date_time %>
+        </p>
+        <p class="text-gray-900 mb-0">
+          <b>Allows Multiple Entries:</b> <%= @pool.multiple_entries_text %>
+        </p>
+        <p class="text-red-600 text-xs mb-4">*All times are in Mountain Time</p>
         <%= @pool.entry_button %>
         <div>
           <% if @entries.any? %>
@@ -111,6 +117,9 @@
         <ol class="list-decimal list-inside ml-4">
           <% @pool.saved_questions.each do |question| %>
             <li class="text-gray-600 mb-2">
+              <% if policy(@pool).edit_prop? %>
+                <%= link_to "✏️", edit_pool_question_path(@pool, question), class: "no-underline" %>
+              <% end %>
               <b><%= question.body %></b>
             </li>
           <% end %>
@@ -122,7 +131,7 @@
   </div>
 
   <% if @pool.editable? && policy(@pool).admin? %>
-    <%= render "question_form" %>
+    <%= render partial: "shared/question_form", locals: { form_title: "Add a new prop", button_text: "Create prop", url: pool_question_path(@pool) } %>
   <% elsif policy(@pool).admin? %>
     <p>This pool can no longer be changed because people have entered.</p>
   <% end %>

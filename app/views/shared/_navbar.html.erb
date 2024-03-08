@@ -9,7 +9,7 @@
       <div class="hidden md:block">
         <div class="ml-4 flex items-center md:ml-6">
           <% if current_user %>
-            <%= link_to "Dashboard", dashboard_path, class: "px-3 py-2 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 mr-2" %>
+            <%= link_to "Dashboard", dashboard_path, class: "px-3 py-2 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 mr-2 no-underline" %>
             <%= button_to "Log Out", destroy_user_session_path, method: :delete, class: "px-3 py-2 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 mr-2" %>
           <% else %>
             <%= link_to "Log In", new_user_session_path, class: "px-3 py-2 rounded-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 mr-2" %>

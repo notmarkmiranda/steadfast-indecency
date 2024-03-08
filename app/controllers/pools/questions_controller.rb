@@ -10,6 +10,22 @@ class Pools::QuestionsController < ApplicationController
     redirect_to @pool, flash
   end
 
+  def edit
+    return redirect_to @pool, notice: "This pools is no longer editable" unless @pool.editable?
+    @question = @pool.questions.find(params[:id])
+    authorize @pool, :edit_prop?
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    authorize @pool, :edit_prop?
+    if @question.update(question_params)
+      redirect_to @pool, notice: "Question was successfully updated."
+    else
+      render :edit, alert: "Failed to update question."
+    end
+  end
+
   private
 
   def load_pool
@@ -17,6 +33,6 @@ class Pools::QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:body, :tie_break, options_attributes: [:body])
+    params.require(:question).permit(:body, :tie_break, options_attributes: [:id, :body])
   end
 end
