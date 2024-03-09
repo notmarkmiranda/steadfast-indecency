@@ -61,7 +61,7 @@
                 <% @pool.memberships.decorate.each do |membership| %>
                   <tr class="odd:bg-white">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-xs inline-flex gap-1">
-                      <% if policy(@pool).admin? %>
+                      <% if policy(@pool).admin? && membership.is_not_user?(current_user) %>
                         <%= button_to pool_membership_path(@pool, membership), method: :delete do %>
                           <i class="fa-solid fa-x text-red-600"></i>
                         <% end %>

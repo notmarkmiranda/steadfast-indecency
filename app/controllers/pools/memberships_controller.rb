@@ -7,7 +7,7 @@ class Pools::MembershipsController < ApplicationController
   end
 
   def create
-    # TODO: Mark Mirnda => refactor this to use a service object
+    # TODO: Mark Miranda => refactor this to use a service object
     authorize @pool, :admin?
     @membership = @pool.memberships.new(membership_params)
     @membership.user = retrieve_or_create_user
@@ -21,9 +21,10 @@ class Pools::MembershipsController < ApplicationController
 
   def destroy
     @membership = Membership.find(params[:id])
-    # authorize @membership, :destroy?
+    authorize @membership, :destroy?
+
+    # TODO: Mark Miranda => this should be called from a job
     MembershipDeletorService.call(membership_id: @membership.id)
-    # @membership.destroy
 
     redirect_to @membership.pool, notice: "Membership removed."
   end

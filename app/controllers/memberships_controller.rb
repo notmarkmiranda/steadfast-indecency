@@ -2,7 +2,7 @@ class MembershipsController < ApplicationController
   def destroy
     @membership = Membership.find(params[:id])
     user = @membership.user
-    # authorize @membership, :destroy?
+    authorize @membership, :destroy?
     @membership.destroy!
     DestroyUserJob.schedule(user.id) if user.has_no_memberships?
 

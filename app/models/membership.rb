@@ -29,4 +29,8 @@ class Membership < ApplicationRecord
   def invitation_token
     to_sgid(for: "membership").to_s
   end
+
+  def is_not_user?(object_user)
+    user != object_user
+  end
 end
