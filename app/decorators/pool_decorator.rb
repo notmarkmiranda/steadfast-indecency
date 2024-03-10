@@ -26,7 +26,7 @@ class PoolDecorator < Draper::Decorator
 
   def entry_button_css(disabled)
     if disabled
-      "text-white font-medium disabled:bg-indigo-100 px-4 py-2 rounded-md"
+      "text-gray font-medium bg-gray-200 px-4 py-2 rounded-md cursor-disabled-button"
     else
       "text-white font-medium bg-indigo-600 px-4 py-2 rounded-md"
     end

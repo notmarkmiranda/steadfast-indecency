@@ -7,4 +7,8 @@
     @apply text-blue-500;
     @apply underline;
   }
+  .cursor-disabled-button {
+    @apply cursor-not-allowed;
+    @apply opacity-50;
+  }
 }
