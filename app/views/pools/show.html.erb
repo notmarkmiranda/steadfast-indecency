@@ -1,6 +1,6 @@
 <div class="container mx-auto">
   <h1 class="text-2xl font-bold mb-4">Pool Details</h1>
-  <div class="bg-white border border-black rounded-lg p-6 mb-4">
+  <div class="bg-white border border-black p-6 mb-4">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="col-span-1">
         <h2 class="text-lg font-bold mb-2">
@@ -23,9 +23,9 @@
         <div>
           <% if @entries.any? %>
             <h3 class="text-lg font-bold mb-2 mt-4">Your Entries</h3>
-            <ul class="w-64 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
+            <ul class="w-64 text-sm font-medium text-gray-900 bg-white border border-gray-200">
               <% @entries.each_with_index do |entry, index| %>
-                <li class="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg inline-flex gap-4 items-center justify-between">
+                <li class="w-full px-4 py-2 border-b border-gray-200 inline-flex gap-4 items-center justify-between">
                   <%= entry.pool_show_link(index) %>
                   <% if policy(entry).destroy? %>
                     <%= entry.delete_button %>
@@ -35,13 +35,32 @@
             </ul>
           <% end %>
         </div>
+        <div class="mt-4">
+          <h3 class="text-lg font-bold mb-2">Props</h3>
+          <% if @pool.saved_questions.any? %>
+            <ol class="list-decimal list-inside ml-4">
+              <% @pool.saved_questions.each do |question| %>
+                <li class="text-gray-600 mb-2">
+                  <% if policy(@pool).edit_prop? %>
+                    <%= link_to edit_pool_question_path(@pool, question), class: "no-underline text-yellow-400" do %>
+                      <i class="fa-solid fa-pencil"></i>
+                    <% end %>
+                  <% end %>
+                  <b><%= question.body %></b>
+                </li>
+              <% end %>
+            </ol>
+          <% else %>
+            <p class="text-gray-600 mb-2">No props have been added to this pool yet.</p>
+          <% end %>
+        </div>
       </div>
       <div class="col-span-2">
         <div class="members-list">
           <h3 class="text-lg font-bold mb-2">Members & Entries</h3>
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+          <div class="relative overflow-x-auto shadow-md">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 border-collapse border border-slate-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                 <tr>
                   <th scope="col" class="px-6 py-3">
                     Email
@@ -49,17 +68,19 @@
                   <th scope="col" class="px-6 py-3">
                     Role
                   </th>
-                  <th scope="col" class="px-6 py-3">
-                    Status
-                  </th>
-                  <th scope="col" class="px-6 py-3">
-                    Entered?
-                  </th>
+                  <% if policy(@pool).admin? %>
+                    <th scope="col" class="px-6 py-3">
+                      Status
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Entered?
+                    </th>
+                  <% end %>
                 </tr>
               </thead>
               <tbody>
                 <% @pool.memberships.decorate.each do |membership| %>
-                  <tr class="odd:bg-white">
+                  <tr>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-xs inline-flex gap-1">
                       <% if policy(@pool).admin? && membership.is_not_user?(current_user) %>
                         <%= button_to pool_membership_path(@pool, membership), method: :delete do %>
@@ -71,12 +92,14 @@
                     <td class="px-6 py-4 text-xs">
                       <%= membership.role_text %>
                     </td>
-                    <td class="px-6 py-4 text-xs">
-                      <%= membership.status_text %>
-                    </td>
-                    <td class="px-6 py-4 text-xs">
-                      <%= membership.entered_text %>
-                    </td>
+                    <% if policy(@pool).admin? %>
+                      <td class="px-6 py-4 text-xs">
+                        <%= membership.status_text %>
+                      </td>
+                      <td class="px-6 py-4 text-xs">
+                        <%= membership.entered_text %>
+                      </td>
+                    <% end %>
                   </tr>
                   <% membership.user_entries.decorate.each_with_index do |entry, i| %>
                     <tr>
@@ -89,9 +112,6 @@
 
                       <td colspan="3" class="px-6 py-2 text-xs">
                         <span class="inline-flex gap-4">
-                          <% if policy(entry).destroy? %>
-                            <%= entry.delete_button %>
-                          <% end %>
                           <% if policy(@pool).admin? %>
                             <%= entry.paid_unpaid_button %>
                           <% end %>
@@ -115,25 +135,6 @@
 
         </div>
       </div>
-    </div>
-    <div class="mt-4">
-      <h3 class="text-lg font-bold mb-2">Props</h3>
-      <% if @pool.saved_questions.any? %>
-        <ol class="list-decimal list-inside ml-4">
-          <% @pool.saved_questions.each do |question| %>
-            <li class="text-gray-600 mb-2">
-              <% if policy(@pool).edit_prop? %>
-                <%= link_to edit_pool_question_path(@pool, question), class: "no-underline text-yellow-400" do %>
-                  <i class="fa-solid fa-pencil"></i>
-                <% end %>
-              <% end %>
-              <b><%= question.body %></b>
-            </li>
-          <% end %>
-        </ol>
-      <% else %>
-        <p class="text-gray-600 mb-2">No props have been added to this pool yet.</p>
-      <% end %>
     </div>
   </div>
 
