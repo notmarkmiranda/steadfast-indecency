@@ -3,7 +3,7 @@
     <h2 class="text-4xl font-extrabold mb-4"><%= form_title %></h2>
     <div class="mb-4">
       <%= form.label :body, "Question", class: "block text-gray-700 text-sm font-bold mb-2" %>
-      <%= form.text_field :body, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      <%= form.text_field :body, class: "shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
 
     <div class="mb-4">
@@ -16,13 +16,13 @@
       <%= form.fields_for :options do |option_form| %>
         <div class="mb-2">
           <%= option_form.label :body, "Option #{option_form.options[:child_index] + 1}", class: "block text-gray-700 text-sm font-bold mb-1" %>
-          <%= option_form.text_field :body, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+          <%= option_form.text_field :body, class: "shadow appearance-none border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
         </div>
       <% end %>
     </div>
 
     <div class="flex items-center justify-between">
-      <%= form.submit button_text, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      <%= form.submit button_text, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline" %>
     </div>
   <% end %>
 </div>
