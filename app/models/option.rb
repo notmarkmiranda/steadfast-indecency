@@ -10,6 +10,15 @@
 #  question_id :bigint           not null
 #
 class Option < ApplicationRecord
+  include CorrectHelper
   belongs_to :question
   has_many :choices, dependent: :destroy
+
+  def siblings
+    question.options.where.not(id: id)
+  end
+
+  def self.incorrect!
+    update_all(correct: false)
+  end
 end

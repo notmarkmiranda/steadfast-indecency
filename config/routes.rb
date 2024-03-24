@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     end
     member do
       get "/invite/:token", to: "pools#invite", as: "invite"
+      get "/admin", to: "pools#admin", as: "admin"
+
+      resources :options, only: [] do
+        put "/correct", to: "pools/options#correct", as: "pool_correct"
+      end
     end
   end
 

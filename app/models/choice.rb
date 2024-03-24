@@ -11,6 +11,8 @@
 #  question_id :bigint           not null
 #
 class Choice < ApplicationRecord
+  include CorrectHelper
+
   belongs_to :option, optional: true
   belongs_to :question
   belongs_to :entry

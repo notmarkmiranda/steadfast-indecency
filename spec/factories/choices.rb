@@ -15,6 +15,5 @@ FactoryBot.define do
     question
     option
     entry
-    correct { false }
   end
 end

@@ -1,5 +1,5 @@
 class PoolsController < ApplicationController
-  before_action :set_pool, only: [:show, :edit, :update, :destroy, :invite]
+  before_action :set_pool, only: [:show, :edit, :update, :destroy, :invite, :admin]
 
   def index
     @pools = Pool.all
@@ -50,6 +50,10 @@ class PoolsController < ApplicationController
 
   def invite
     @membership = GlobalID::Locator.locate_signed(params[:token], for: "membership")
+  end
+
+  def admin
+    authorize @pool, :admin?
   end
 
   private

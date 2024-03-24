@@ -1,0 +1,5 @@
+<% if @pool.editable? && policy(@pool).admin? %>
+  <%= render partial: "shared/question_form", locals: { form_title: "Add a new prop", button_text: "Create prop", url: pool_questions_path(@pool) } %>
+<% elsif policy(@pool).admin? %>
+  <p>This pool can no longer be changed because people have entered.</p>
+<% end %>

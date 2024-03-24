@@ -1,0 +1,75 @@
+<div class="members-list mb-4">
+  <h3 class="text-lg font-bold mb-2">Members & Entries</h3>
+  <div class="relative overflow-x-auto shadow-md">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 border-collapse border border-slate-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Email
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Role
+          </th>
+          <% if policy(@pool).admin? %>
+            <th scope="col" class="px-6 py-3">
+              Status
+            </th>
+            <th scope="col" class="px-6 py-3">
+              Entered?
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pool.memberships.decorate.each do |membership| %>
+          <tr>
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-xs inline-flex gap-1">
+              <% if policy(@pool).admin? && membership.is_not_user?(current_user) %>
+                <%= button_to pool_membership_path(@pool, membership), method: :delete do %>
+                  <i class="fa-solid fa-x text-red-600"></i>
+                <% end %>
+              <% end %>
+              <%= membership.user_email%>
+            </th>
+            <td class="px-6 py-4 text-xs">
+              <%= membership.role_text %>
+            </td>
+            <% if policy(@pool).admin? %>
+              <td class="px-6 py-4 text-xs">
+                <%= membership.status_text %>
+              </td>
+              <td class="px-6 py-4 text-xs">
+                <%= membership.entered_text %>
+              </td>
+            <% end %>
+          </tr>
+          <% membership.user_entries.decorate.each_with_index do |entry, i| %>
+            <tr>
+              <td class="pl-10 pr-6 pb-0 pt-0 font-medium text-gray-900 whitespace-nowrap text-xs">
+                <% if policy(@pool).admin? %>
+                  <%= entry.paid_icon %>
+                <% end %>
+                <%= entry.pool_show_link(i, enabled: false) %>
+              </td>
+
+              <td colspan="3" class="px-6 py-2 text-xs">
+                <span class="inline-flex gap-4">
+                  <% if policy(@pool).admin? %>
+                    <%= entry.paid_unpaid_button %>
+                  <% end %>
+                </span>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% if policy(@pool).admin? && @pool.editable? %>
+        <tr>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-xs" colspan="4">
+            <%= link_to "Invite New Member", new_pool_membership_path(@pool) %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

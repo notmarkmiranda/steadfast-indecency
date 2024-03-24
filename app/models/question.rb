@@ -17,6 +17,14 @@ class Question < ApplicationRecord
 
   validate :require_two_options
 
+  def first_option
+    options.first
+  end
+
+  def last_option
+    options.last
+  end
+
   private
 
   def require_two_options

@@ -1,0 +1,18 @@
+<div class="pool-deets">
+  <h2 class="text-lg font-bold mb-2">
+    <%= @pool.name %>
+  </h2>
+  <p class="text-gray-600 mb-2">
+    <%= @pool.description %>
+  </p>
+  <p class="text-gray-900 mb-0">
+    <b>Cutoff Date:</b> <%= @pool.cutoff_date_time %>
+  </p>
+  <p class="text-gray-900 mb-0">
+    <b>Event Date:</b> <%= @pool.event_date_time %>
+  </p>
+  <p class="text-gray-900 mb-0">
+    <b>Allows Multiple Entries:</b> <%= @pool.multiple_entries_text %>
+  </p>
+  <p class="text-red-600 text-xs mb-4">*All times are in Mountain Time</p>
+</div>
