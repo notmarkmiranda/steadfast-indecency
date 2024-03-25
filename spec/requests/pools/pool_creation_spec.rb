@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe "Pool creation", type: :request do
+  include ActiveSupport::Testing::TimeHelpers
+
   before { sign_in create(:user) }
 
   let(:pool_params) do
@@ -13,11 +15,13 @@ RSpec.describe "Pool creation", type: :request do
   end
 
   it "saves event and cutoff datetime as UTC in the database" do
-    post "/pools", params: {pool: pool_params}
+    travel_to Time.zone.local(2024, 1, 1, 12, 0, 0) do
+      post "/pools", params: {pool: pool_params}
 
-    pool = Pool.last
-    # this validates that it is being saved in UTC in the database
-    expect(pool.cutoff_date.hour).to eq(19)
-    expect(pool.event_date.hour).to eq(20)
+      pool = Pool.last
+      # this validates that it is being saved in UTC in the database
+      expect(pool.cutoff_date.hour).to eq(19)
+      expect(pool.event_date.hour).to eq(20)
+    end
   end
 end
