@@ -1,5 +1,13 @@
 class PoolsController < ApplicationController
-  before_action :set_pool, only: [:show, :edit, :update, :destroy, :invite, :admin]
+  before_action :set_pool, only: [
+    :show,
+    :edit,
+    :update,
+    :destroy,
+    :invite,
+    :admin,
+    :scoreboard
+  ]
 
   def index
     @pools = Pool.all
@@ -54,6 +62,11 @@ class PoolsController < ApplicationController
 
   def admin
     authorize @pool, :admin?
+  end
+
+  def scoreboard
+    authorize @pool, :show?
+    @users = (params[:sort] == "possible") ? @pool.users_by_possible_points : @pool.users_by_points
   end
 
   private

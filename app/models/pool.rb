@@ -20,6 +20,20 @@ class Pool < ApplicationRecord
 
   delegate :count, to: :questions, prefix: true
 
+  def users_by_points
+    users_with_points
+      .select("RANK() OVER (ORDER BY SUM(CASE WHEN choices.correct = true THEN 1 ELSE 0 END) DESC, SUM(CASE WHEN choices.correct = true OR choices.correct IS NULL THEN 1 ELSE 0 END) DESC) AS rank")
+      .order("correct_choice_count DESC", "possible_points DESC")
+      .decorate
+  end
+
+  def users_by_possible_points
+    users_with_points
+      .select("RANK() OVER (ORDER BY SUM(CASE WHEN choices.correct = true OR choices.correct IS NULL THEN 1 ELSE 0 END) DESC, SUM(CASE WHEN choices.correct = true THEN 1 ELSE 0 END) DESC) AS rank")
+      .order("possible_points DESC", "correct_choice_count DESC")
+      .decorate
+  end
+
   def saved_questions
     questions.where.not(id: nil)
   end
@@ -54,5 +68,19 @@ class Pool < ApplicationRecord
 
   def is_in_the_future?
     cutoff_date > Time.zone.today
+  end
+
+  private
+
+  def users_with_points
+    User.with_points(id)
+    # .joins(entries: :choices)
+    # .select('users.*')
+    # .select('SUM(CASE WHEN choices.correct = true THEN 1 ELSE 0 END) AS correct_choice_count')
+    # .select('SUM(CASE WHEN choices.correct = true OR choices.correct IS NULL THEN 1 ELSE 0 END) AS possible_points')
+    # .select('RANK() OVER (ORDER BY SUM(CASE WHEN choices.correct = true THEN 1 ELSE 0 END) DESC, SUM(CASE WHEN choices.correct = true OR choices.correct IS NULL THEN 1 ELSE 0 END) DESC) AS rank')
+    # .where(entries: { pool_id: id })
+    # .group('users.id')
+    # .order('correct_choice_count DESC', 'possible_points DESC')
   end
 end

@@ -1,9 +1,8 @@
 class Pools::OptionsController < ApplicationController
   def correct
-    @pool = Pool.find(params[:pool_id])
+    @pool = Pool.find(params[:id])
     authorize @pool, :admin?
-    require 'pry'; binding.pry
-    OptionUpdateJob.perform(params[:id])
-    # @option = Option.include(question: :options).find(params[:id])
+    OptionUpdateJob.perform_now(params[:option_id])
+    redirect_to admin_pool_path(@pool)
   end
 end

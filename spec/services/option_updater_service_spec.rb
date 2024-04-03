@@ -24,7 +24,7 @@ RSpec.describe OptionUpdaterService do
     end
 
     it "marks the option's sibling choices as incorrect" do
-      expect { service_call}.to change { choice_b.reload.correct }.from(nil).to(false)
+      expect { service_call }.to change { choice_b.reload.correct }.from(nil).to(false)
     end
   end
 end

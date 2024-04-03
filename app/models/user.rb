@@ -21,6 +21,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable
 
+  def self.with_points(pool_id)
+    joins(entries: :choices)
+      .select("users.*")
+      .select("SUM(CASE WHEN choices.correct = true THEN 1 ELSE 0 END) AS correct_choice_count")
+      .select("SUM(CASE WHEN choices.correct = true OR choices.correct IS NULL THEN 1 ELSE 0 END) AS possible_points")
+      .where(entries: {pool_id: pool_id})
+      .group("users.id")
+  end
+
   def super_duper_admin?
     email == "notmarkmiranda@gmail.com"
   end
