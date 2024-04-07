@@ -19,6 +19,7 @@ class PoolsController < ApplicationController
     else
       authorize @pool
       @entries = @pool.entries.where(user: current_user).decorate
+      @users = (params[:sort] == "possible") ? @pool.users_by_possible_points : @pool.users_by_points
       if @pool.editable?
         @question = @pool.questions.build
         @options = 2.times.map { @question.options.build }

@@ -1,0 +1,52 @@
+<div class="summary-scoreboard mb-4">
+  <% if @users.any? %>
+    <table class="w-full table-auto border-separate border-spacing-2 border border-gray-200">
+      <thead class="text-sm font-semibold text-gray-700 bg-gray-50">
+        <tr>
+          <th class="border border-gray-200 px-4 py-2 text-center">
+            Rank
+          </th>
+          <th class="border border-gray-200 px-4 py-2 text-left">
+            Name
+          </th>
+          <th class="border border-gray-200 px-4 py-2 text-left" style="width: 10%;">
+            <%= link_to_if params[:sort].present?, "Points", pool_path(@pool), class: "sort" %>
+          </th>
+          <th class="border border-gray-200 px-4 py-2 text-left" style="width: 10%;">
+            <%= link_to_if params[:sort].nil?, "Possible Points", pool_path(@pool, sort: "possible"), class: "sort" %>
+          </th>
+        </tr>
+        </tr>
+      </thead>
+      <tbody class="text-sm">
+        <% @users.each_with_index do |player, index| %>
+          <tr class="<%= player.rank_row_css(index, current_user.id) %>">
+            <td class="border border-gray-200 px-4 py-2 text-center font-medium text-gray-900">
+              <%= player.rank %>
+            </td>
+            <td class="border border-gray-200 px-4 py-2 text-left text-gray-900">
+              <div class="flex items-center gap-2">
+                <div class="text-lg text-red-600">
+                  <%= button_to "#", method: :delete, form: { data: {turbo_confirm: "Are you sure? \n 🚨 This cannot be undone. 🚨"}} do %>
+                    <i class="fa-solid fa-regular fa-circle-xmark"></i>
+                    <i class="fa-solid fa-circle-dollar-to-slot"></i>
+                  <% end %>
+                </div>
+                <%= player.email %> - Entry #<%= player.entry_id %>
+              </div>
+            </td>
+            <td class="border border-gray-200 px-4 py-2 text-left">
+              <%= player.correct_choice_count %>
+            </td>
+            <td class="border border-gray-200 px-4 py-2 text-left">
+              <%= player.possible_points %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  <% else %>
+    <h1>Nothing to see here, please check back later</h1>
+  <% end %>
+</div>

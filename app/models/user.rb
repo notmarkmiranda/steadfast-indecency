@@ -28,6 +28,7 @@ class User < ApplicationRecord
       .group('entries.id', 'users.id')
       .select('users.*')
       .select('entries.id AS entry_id')
+      .select('entries.paid AS entry_paid')
       .select('SUM(CASE WHEN choices.correct = true THEN 1 ELSE 0 END) AS correct_choice_count')
       .select('SUM(CASE WHEN choices.correct = true OR choices.correct IS NULL THEN 1 ELSE 0 END) AS possible_points')
   end
