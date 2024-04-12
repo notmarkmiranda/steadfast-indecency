@@ -28,7 +28,7 @@ class PoolDecorator < Draper::Decorator
     if disabled
       "text-gray font-medium bg-gray-200 px-4 py-2 rounded-md cursor-disabled-button"
     else
-      "text-white font-medium bg-blue-600 hover:bg-blue-800 px-4 py-2"
+      "text-white font-medium bg-gray-600 hover:bg-gray-800 px-4 py-2"
     end
   end
 end

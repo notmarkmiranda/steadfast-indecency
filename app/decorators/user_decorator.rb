@@ -10,7 +10,7 @@ class UserDecorator < Draper::Decorator
   #     end
   #   end
   def rank_row_css(index, current_user_id)
-    return "bg-red-200" if object.id == current_user_id
+    return "bg-blue-200" if object.id == current_user_id
     "bg-gray-100" if index.even?
   end
 end

@@ -7,7 +7,7 @@
         <li class="w-full px-4 py-2 border-b border-gray-200 inline-flex gap-4 items-center justify-between">
           <%= entry.pool_show_link(index) %>
           <% if policy(entry).destroy? %>
-            <%= entry.delete_button %>
+            <%= render partial: "delete_entry_button", locals: { entry: }%>
           <% end %>
         </li>
       <% end %>

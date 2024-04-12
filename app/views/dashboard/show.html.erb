@@ -1,7 +1,7 @@
 <h2 class="text-4xl font-extrabold mb-4">Dashboard</h2>
 <h1>Welcome <%= current_user.email %></h1>
 
-<%= link_to "Create New Pool", new_pool_path, class: "text-blue-500 font-bold hover:text-blue-700" %>
+<%= link_to "Create New Pool", new_pool_path, class: "text-gray-500 font-bold hover:text-blue-700" %>
 
 <% if @pools.any? %>
   <table class="min-w-full divide-y divide-gray-200">
@@ -18,7 +18,7 @@
       <% @pools.each do |pool| %>
         <tr>
           <td class="px-6 py-4 whitespace-nowrap">
-            <%= link_to pool.name, pool_path(pool), class: "text-blue-500 font-bold hover:text-blue-700" %>
+            <%= link_to pool.name, pool_path(pool), class: "text-gray-500 font-bold hover:text-blue-700" %>
           </td>
           <td class="px-6 py-4 whitespace-nowrap"><%= pool.description %></td>
           <td class="px-6 py-4 whitespace-nowrap"><%= pool.cutoff_date %></td>
