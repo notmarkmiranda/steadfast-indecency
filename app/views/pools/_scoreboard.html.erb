@@ -20,18 +20,15 @@
       </thead>
       <tbody class="text-sm">
         <% @users.each_with_index do |player, index| %>
+          <% entry = Entry.find(player.entry_id).decorate %>
           <tr class="<%= player.rank_row_css(index, current_user.id) %>">
             <td class="border border-gray-200 px-4 py-2 text-center font-medium text-gray-900">
               <%= player.rank %>
             </td>
             <td class="border border-gray-200 px-4 py-2 text-left text-gray-900">
               <div class="flex items-center gap-2">
-                <div class="text-lg text-red-600">
-                  <%= button_to "#", method: :delete, form: { data: {turbo_confirm: "Are you sure? \n 🚨 This cannot be undone. 🚨"}} do %>
-                    <i class="fa-solid fa-regular fa-circle-xmark"></i>
-                    <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                  <% end %>
-                </div>
+                <%= render partial: "delete_entry_button", locals: { entry: }%>
+                <%= render partial: "paid_unpaid_button", locals: { entry:, paid: entry.paid? }%>
                 <%= player.email %> - Entry #<%= player.entry_id %>
               </div>
             </td>

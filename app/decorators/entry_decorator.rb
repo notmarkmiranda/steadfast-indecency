@@ -6,16 +6,11 @@ class EntryDecorator < Draper::Decorator
   end
 
   def delete_button
-    h.content_tag :div, class: "text-lg text-red-600" do
-      h.button_to h.pool_entry_path(object.pool, object), method: :delete, form: {data: {turbo_confirm: "Are you sure? \n 🚨 This cannot be undone. 🚨"}} do
-        h.content_tag :i, nil, class: "fa-regular fa-circle-xmark"
-      end
-    end
   end
 
   def paid_unpaid_button
     if object.paid
-      h.button_to h.unpaid_pool_entry_path(object.pool, object), class: "px-2 py-1 text-white bg-red-500 border-red-500 rounded-lg hover:bg-red-600" do
+      h.button_to h.unpaid_pool_entry_path(object.pool, object), class: "px-2 py-1 text-white bg-gray-500 border-red-500 rounded-lg hover:bg-gray-600" do
         "Mark as Unpaid"
       end
     else

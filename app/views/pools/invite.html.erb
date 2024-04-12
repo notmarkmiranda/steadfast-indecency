@@ -11,7 +11,7 @@
 
   <div class="mt-4 flex">
     <%= button_to "Accept", accept_membership_path(@membership), method: :put, class: "bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-8 rounded mr-2" %>
-    <%= button_to "Reject", membership_path(@membership), method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-8 rounded" %>
+    <%= button_to "Reject", membership_path(@membership), method: :delete, class: "bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-8 rounded" %>
   </div>
   <p class="text-xs mt-4 text-gray-400">*If you decide to reject this invitation and are not a member of any other pools, we will delete your account in about 3 days</p>
 </div>
