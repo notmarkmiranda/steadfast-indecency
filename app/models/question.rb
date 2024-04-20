@@ -25,6 +25,14 @@ class Question < ApplicationRecord
     options.last
   end
 
+  def has_correct_option?
+    correct_option.present?
+  end
+
+  def correct_option
+    options.find_by(correct: true)
+  end
+
   private
 
   def require_two_options
