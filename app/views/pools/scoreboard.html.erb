@@ -1,1 +1,48 @@
-<%= render partial: "scoreboard" %>
+<div class="detailed-scoreboard mb-4 overflow-x">
+  <table class="w-full table-auto overflow-scroll border-separate border-spacing-2 border border-gray-200">
+    <thead class="text-sm font-semibold text-gray-700 bg-gray-50">
+      <tr>
+        <th class="border border-gray-200 px-4 py-2 text-center">
+          Prop
+        </th>
+        <th class="border border-gray-200 px-4 py-2 text-center">
+          A
+        </th>
+        <th class="border border-gray-200 px-4 py-2 text-center">
+          B
+        </th>
+        <th class="border border-gray-200 px-4 py-2 text-center">
+          Right Answer
+        </th>
+        <% @entries.each do |entry|%>
+        <th class="text-xs text-center">
+          <%= entry.email_and_id %>
+        </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody class="text-sm">
+      <% @pool.saved_questions.decorate.each do |question| %>
+        <tr>
+          <td class="border border-gray-200 px-4 py-2 text-left text-gray-900">
+            <%= question.body %>
+          </td>
+          <td class="border border-gray-200 px-4 py-2 text-left text-gray-900">
+            <%= question.first_option_body %>
+          </td>
+          <td class="border border-gray-200 px-4 py-2 text-left text-gray-900">
+            <%= question.last_option_body %>
+          </td>
+          <td class="border border-gray-200 px-4 py-2 text-center text-gray-900">
+            <%= question.correct_option_a_or_b %>
+          </td>
+          <% @entries.each do |entry| %>
+            <%= content_tag :td, class: question.option_choice_css(entry) do %>
+              <%= question.choice_option_a_or_b(entry) %>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

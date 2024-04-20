@@ -67,7 +67,7 @@ class PoolsController < ApplicationController
 
   def scoreboard
     authorize @pool, :show?
-    @users = (params[:sort] == "possible") ? @pool.users_by_possible_points : @pool.users_by_points
+    @entries = @pool.entries_for_detailed_scoreboard.decorate
   end
 
   private
