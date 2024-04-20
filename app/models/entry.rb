@@ -24,4 +24,8 @@ class Entry < ApplicationRecord
   def unpaid!
     update!(paid: false)
   end
+
+  def choice_for_question(question)
+    choices.find_by(question: question)
+  end
 end

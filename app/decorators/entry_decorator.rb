@@ -8,6 +8,10 @@ class EntryDecorator < Draper::Decorator
   def delete_button
   end
 
+  def email_and_id
+    "#{email} (#{id})"
+  end
+
   def paid_unpaid_button
     if object.paid
       h.button_to h.unpaid_pool_entry_path(object.pool, object), class: "px-2 py-1 text-white bg-gray-500 border-red-500 rounded-lg hover:bg-gray-600" do

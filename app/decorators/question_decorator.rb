@@ -1,12 +1,34 @@
 class QuestionDecorator < Draper::Decorator
   delegate_all
 
+  def correct_option_a_or_b
+    if has_correct_option?
+      (correct_option == first_option) ? "A" : "B"
+    end
+  end
+
+  def choice_option_a_or_b(entry)
+    option = entry.choice_for_question(self).option
+    (option == first_option) ? "A" : "B"
+  end
+
   def first_option_body
     first_option.body
   end
 
   def last_option_body
     last_option.body
+  end
+
+  def option_choice_css(entry)
+    css = "border border-gray-200 px-4 py-2 text-center"
+    choice = entry.choice_for_question(self)
+    if choice&.correct == true
+      css += " bg-green-500"
+    elsif choice&.correct == false
+      css += " bg-red-500"
+    end
+    css
   end
 
   def first_option_css

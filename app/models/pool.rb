@@ -34,6 +34,21 @@ class Pool < ApplicationRecord
       .decorate
   end
 
+  def entries_for_detailed_scoreboard
+    Entry.where(pool: self)
+      .joins(:user, :choices)
+      .select("entries.*")
+      .select("users.email")
+      .select("COUNT(DISTINCT questions.id) AS total_questions")
+      .select("COUNT(DISTINCT CASE WHEN choices.correct = true THEN choices.id END) AS correct_answers")
+      .select("COUNT(DISTINCT CASE WHEN choices.correct = true OR choices.correct IS NULL THEN questions.id END) AS possible_answers")
+      .select("RANK() OVER (ORDER BY COUNT(DISTINCT CASE WHEN choices.correct = true THEN choices.id END) DESC) AS rank")
+      .joins("LEFT JOIN questions ON questions.pool_id = entries.pool_id")
+      .joins("LEFT JOIN choices ON choices.entry_id = entries.id AND choices.question_id = questions.id")
+      .group("entries.id", "users.email")
+      .order("correct_answers DESC")
+  end
+
   def saved_questions
     questions.where.not(id: nil)
   end
