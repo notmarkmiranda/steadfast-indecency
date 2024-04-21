@@ -2,7 +2,7 @@ class Pools::EntriesController < ApplicationController
   before_action :set_pool
 
   def show
-    @entry = Entry.includes(pool: {questions: :options}).find(params[:id])
+    @entry = Entry.find(params[:id])
   end
 
   def new

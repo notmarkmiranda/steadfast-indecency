@@ -28,6 +28,9 @@
       <div class="col-span-2">
         <%= render "scoreboard" %>
         <div class="flex space-x-2">
+          <% if policy(@pool).admin? && @pool.editable? %>
+            <%= link_to "Invite New Member", new_pool_membership_path(@pool), class: "font-medium text-xs bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 no-underline" %>
+          <% end %>
           <%= link_to "Admin Panel", admin_pool_path(@pool), class: "font-medium text-xs bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 no-underline" %>
           <%= link_to "Detailed Scoreboard", scoreboard_pool_path(@pool), class: "font-medium text-xs bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 no-underline" %>
         </div>

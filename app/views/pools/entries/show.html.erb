@@ -3,7 +3,7 @@
 <h1 class="text-2xl font-bold mb-4">Your Entry</h1>
 
 <%= form_with model: @entry, url: pool_entry_path(@pool), method: :put do |f| %>
-  <% @entry.choices.in_question_order.each do |choice| %>
+  <% @entry.choices.includes(question: :options).in_question_order.each do |choice| %>
     <b class="text-xl"><%= choice.question_body %></b>
     <%= f.fields_for :choices, choice do |ff| %>
       <% choice.question_options.each do |option| %>

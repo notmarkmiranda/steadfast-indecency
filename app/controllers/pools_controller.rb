@@ -18,7 +18,7 @@ class PoolsController < ApplicationController
       redirect_to invite_pool_path(@pool, token: pending_membership.invitation_token)
     else
       authorize @pool
-      @entries = @pool.entries.where(user: current_user).decorate
+      @entries = @pool.entries.includes([:user]).where(user: current_user).decorate
       @users = (params[:sort] == "possible") ? @pool.users_by_possible_points : @pool.users_by_points
       if @pool.editable?
         @question = @pool.questions.build
@@ -73,7 +73,7 @@ class PoolsController < ApplicationController
   private
 
   def set_pool
-    @pool = Pool.includes(:entries, memberships: :user, questions: :options).find(params[:id]).decorate
+    @pool = Pool.find(params[:id]).decorate
   end
 
   def pool_params
