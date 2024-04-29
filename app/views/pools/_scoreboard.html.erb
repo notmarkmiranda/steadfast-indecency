@@ -7,7 +7,7 @@
             Rank
           </th>
           <th class="border border-gray-200 px-4 py-2 text-left">
-            Name
+            Entry ID
           </th>
           <th class="border border-gray-200 px-4 py-2 text-left" style="width: 10%;">
             <%= link_to_if params[:sort].present?, "Points", pool_path(@pool), class: "sort" %>
@@ -29,7 +29,7 @@
               <div class="flex items-center gap-2">
                 <%= render partial: "delete_entry_button", locals: { entry: }%>
                 <%= render partial: "paid_unpaid_button", locals: { entry:, paid: entry.paid? }%>
-                <%= player.email %> - Entry #<%= player.entry_id %>
+                <%= entry.unique_identifier %>
               </div>
             </td>
             <td class="border border-gray-200 px-4 py-2 text-left">

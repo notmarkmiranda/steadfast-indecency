@@ -30,7 +30,6 @@ class QuestionDecorator < Draper::Decorator
       css += " bg-red-500"
     end
 
-
     css
   end
 

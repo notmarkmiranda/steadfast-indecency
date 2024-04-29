@@ -5,10 +5,6 @@ class EntryDecorator < Draper::Decorator
     h.link_to_if enabled, "Entry ##{index + 1}", h.pool_entry_path(object.pool, object)
   end
 
-  def email_and_id
-    "#{email} (#{id})"
-  end
-
   def current_user_column_css(current_user)
     css = "text-xs text-center"
     css += " bg-blue-100" if current_user == object.user
@@ -35,6 +31,10 @@ class EntryDecorator < Draper::Decorator
         h.content_tag :i, nil, class: "fa-solid fa-circle-xmark"
       end
     end
+  end
+
+  def unique_identifier
+    "%02d" % user_id + id.to_s
   end
 
   # Define presentation-specific methods here. Helpers are accessed through

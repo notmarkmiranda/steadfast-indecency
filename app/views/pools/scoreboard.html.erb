@@ -16,7 +16,7 @@
         </th>
         <% @entries.each do |entry|%>
         <%= content_tag :th, class: entry.current_user_column_css(current_user) do %>
-          <%= entry.email_and_id %>
+          <%= entry.unique_identifier %>
         <% end %>
         <% end %>
       </tr>
