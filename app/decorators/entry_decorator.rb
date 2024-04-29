@@ -5,11 +5,14 @@ class EntryDecorator < Draper::Decorator
     h.link_to_if enabled, "Entry ##{index + 1}", h.pool_entry_path(object.pool, object)
   end
 
-  def delete_button
-  end
-
   def email_and_id
     "#{email} (#{id})"
+  end
+
+  def current_user_column_css(current_user)
+    css = "text-xs text-center"
+    css += " bg-blue-100" if current_user == object.user
+    css
   end
 
   def paid_unpaid_button

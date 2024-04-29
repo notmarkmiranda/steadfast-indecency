@@ -15,9 +15,9 @@
           Right Answer
         </th>
         <% @entries.each do |entry|%>
-        <th class="text-xs text-center">
+        <%= content_tag :th, class: entry.current_user_column_css(current_user) do %>
           <%= entry.email_and_id %>
-        </th>
+        <% end %>
         <% end %>
       </tr>
     </thead>
@@ -37,7 +37,7 @@
             <%= question.correct_option_a_or_b %>
           </td>
           <% @entries.each do |entry| %>
-            <%= content_tag :td, class: question.option_choice_css(entry) do %>
+            <%= content_tag :td, class: question.option_choice_css(entry, current_user) do %>
               <%= question.choice_option_a_or_b(entry) %>
             <% end %>
           <% end %>

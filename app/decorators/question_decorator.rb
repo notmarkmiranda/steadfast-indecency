@@ -20,14 +20,17 @@ class QuestionDecorator < Draper::Decorator
     last_option.body
   end
 
-  def option_choice_css(entry)
+  def option_choice_css(entry, current_user)
     css = "border border-gray-200 px-4 py-2 text-center"
+    css += " bg-blue-100" if current_user == entry.user
     choice = entry.choice_for_question(self)
     if choice&.correct == true
       css += " bg-green-500"
     elsif choice&.correct == false
       css += " bg-red-500"
     end
+
+
     css
   end
 
