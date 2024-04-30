@@ -23,6 +23,26 @@
       </tr>
     </thead>
     <tbody class="text-sm">
+      <tr>
+        <td class="border border-gray-200 px-4 py-2 text-left bg-gray-50 text-gray-900" colspan=4>
+          Correct Answers
+        </td>
+        <% @entries.each do |entry| %>
+          <td class="border border-gray-200 px-4 py-2 text-center text-gray-900">
+            <%= entry.correct_answers %>
+          </td>
+        <% end %>
+      </tr>
+      <tr>
+        <td class="border border-gray-200 px-4 py-2 text-left bg-gray-50 text-gray-900" colspan=4>
+          Possible Correct Answers
+        </td>
+        <% @entries.each do |entry| %>
+          <td class="border border-gray-200 px-4 py-2 text-center text-gray-900">
+            <%= entry.possible_answers %>
+          </td>
+        <% end %>
+      </tr>
       <% @pool.saved_questions.decorate.each do |question| %>
         <tr>
           <td class="border border-gray-200 px-4 py-2 text-left text-gray-900">
